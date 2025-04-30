@@ -13,6 +13,9 @@ git clone --separate-git-dir="$HOME/.dotfiles.git" https://github.com/jthegedus/
 
 * Create and Store an SSH key and use for Authentication/Commit-Signing in GitHub. I recommend using [BitWarden or an equivalent as an SSH Agent](https://bitwarden.com/help/ssh-agent/) for secure storage and ease of use.
 * Run `cp ~/.dotfiles/.gitconfig.user.template ~/.gitconfig.user` to scaffold the git user file for defining `name`, `email` and ssh `signingkey`. Edit this new file with your settings.
+* Install tools in `.config/brewfile/Brewfile*` using [Homebrew](https://brew.sh/) and [Homebrew File](https://github.com/rcmdnk/homebrew-file/):
+    * `brew install rcmdnk/file/brew-file`
+    * `brew file install`
 
 ## Longstart
 

@@ -1,0 +1,53 @@
+# Brewfile for shared software
+
+# the brewfile package is required to install this brewfile
+# it needs to be installed manually first
+# brew install rcmdnk/file/brew-file
+# see documentation for more - https://github.com/rcmdnk/homebrew-file/
+tap 'rcmdnk/file'
+brew 'brew-file'
+
+## Formulae
+tap 'homebrew/core'
+### shells
+brew "fish"
+brew "zsh"
+### terminal prompt
+brew "macchina"
+brew "starship"
+### version control
+brew "delta"
+brew "difftastic"
+brew "gh"
+brew "git"
+brew "jj"
+### terminal editors
+brew "helix"
+brew "vim"
+### terminal utilities
+brew "bat"
+brew "bottom"
+brew "eza"
+brew "ranger"
+brew "ripgrep"
+brew "tealdeer"
+brew "uutils-coreutils"
+brew "wget"
+brew "zoxide"
+### compression tools
+brew "lz4"
+brew "xz"
+brew "zstd"
+
+## Casks (GUI applications)
+tap 'homebrew/cask'
+cask "brave-browser"
+cask "font-commit-mono-nerd-font"
+cask "ghostty"
+cask "visual-studio-code"
+cask "zed"
+
+### TODO: move as many utilities as possible to a "system" docker image
+###       where each tool is aliased to be executed through
+###       docker on the host machine.
+###       maybe also include the Version Control tools
