@@ -1,0 +1,6 @@
+# As a precaution, ignore everything by default
+*
+!.gitignore
+!.zprofile
+!.zshenv
+!.zshrc
