@@ -1,0 +1,4 @@
+# As a precaution, ignore everything by default
+*
+!.gitignore
+!settings.json
