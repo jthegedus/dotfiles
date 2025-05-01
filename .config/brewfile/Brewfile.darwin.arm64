@@ -1,0 +1,30 @@
+# Brewfile for macOS specific software
+
+tap 'homebrew/core'
+brew 'ca-certificates'
+brew 'gettext'
+brew 'libgit2'
+brew 'libidn2'
+brew 'libsodium'
+brew 'libssh2'
+brew 'libunistring'
+brew 'libyaml'
+brew 'lua'
+brew 'mpdecimal'
+brew 'ncurses'
+brew 'oniguruma'
+brew 'openssl@3'
+brew 'pcre2'
+brew 'python@3.13'
+brew 'readline'
+brew 'ruby'
+brew 'sqlite'
+
+tap 'homebrew/cask'
+cask 'alt-tab'
+
+tap 'nikitabobko/tap'
+cask 'aerospace'
+
+# App Store applications
+mas 'Second Clock (1.1.0)', id: 6450279539
