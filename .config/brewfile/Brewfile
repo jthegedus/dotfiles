@@ -10,6 +10,7 @@ brew 'brew-file'
 ## Formulae
 tap 'homebrew/core'
 ### shells
+brew "bash"
 brew "fish"
 brew "zsh"
 ### terminal prompt
@@ -46,6 +47,8 @@ cask "font-commit-mono-nerd-font"
 cask "ghostty"
 cask "visual-studio-code"
 cask "zed"
+
+main ./Brewfile.$OSTYPE.$PLATFORM
 
 ### TODO: move as many utilities as possible to a "system" docker image
 ###       where each tool is aliased to be executed through
