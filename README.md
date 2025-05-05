@@ -1,12 +1,30 @@
 # Dotfiles
 >symlink-free dotfiles using the *`$HOME` as the `git work-tree`* technique
 
+Used daily on macOS & [BluefinDX](https://projectbluefin.io/)/[Bazzite](https://bazzite.gg/)/[BazziteDX](https://dev.bazzite.gg/) Fedora Linux systems.
+
 ## Quickstart
 
 Clone to your system with https:
 
 ```shell
 git clone --separate-git-dir="$HOME/.dotfiles.git" https://github.com/jthegedus/dotfiles.git "$HOME"
+```
+
+<!-- TODO: handle conflicts or override by default? warn users? -->
+
+Creates the following files in your `$HOME` directory:
+
+```shell
+# $HOME
+.config/*       <-- most configuration files live here
+.dotfiles/      <-- template files for this repo
+.dotfiles.git/  <-- git dir for this repo
+.gitconfig      <-- shared git config file
+.gitconfig.user <-- git user config created
+                    from .dotfiles/*.template
+README.md       <-- this repo README
+.zshenv         <-- tell ZSH to look at ~/.config/zsh/*
 ```
 
 ### Manual post-clone steps
@@ -53,10 +71,10 @@ The list of tools I use as a base on each system/OS are:
     ...         <-- most configuration files live here
 .dotfiles/
     .gitconfig.user.template
-    README.md
 .gitconfig
 .gitconfig.user <-- created from .gitconfig.user.template
                     & imported by .gitconfig
+README.md
 ```
 
 </details>
@@ -88,7 +106,7 @@ Another useful pattern is conditionally override git config settings with furthe
 
 <!-- TODO: inline the steps here -->
 create bare repo `git init --bare $HOME/.dotfiles.git`
-set alias `alias dotfiles='/usr/local/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'`
+set alias `alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'`
 set the repo to ignore all untracked files (using our alias "dotfiles"): `dotfiles config --local status.showUntrackedFiles no`
 set the remote: `dotfiles remote add origin git@github.com:jthegedus/dotfiles.git`
 now add files:
