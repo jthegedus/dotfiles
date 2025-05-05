@@ -119,7 +119,7 @@ end
 ### Set Prompt ###
 ##################
 
-# Call the script to update dotfiles repository
+# update dotfiles repository (once per day)
 set _DOTFILES_UPDATE_SCRIPT "$_DOTFILES_WORK_TREE_PATH/.config/update_dotfiles_repository.sh"
 if status --is-interactive; and test -x "$_DOTFILES_UPDATE_SCRIPT"
 	"$_DOTFILES_UPDATE_SCRIPT" "$_DOTFILES_GIT_DIR_PATH" "$_DOTFILES_WORK_TREE_PATH"

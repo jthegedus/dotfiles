@@ -83,7 +83,7 @@ alias dotfiles="git --git-dir=${_DOTFILES_GIT_DIR_PATH} --work-tree=${_DOTFILES_
 ### Set Prompt ###
 ##################
 
-# Call the script to update dotfiles repository
+# update dotfiles repository (once per day)
 _DOTFILES_UPDATE_SCRIPT="$_DOTFILES_WORK_TREE_PATH/.config/update_dotfiles_repository.sh"
 if [ -x "$_DOTFILES_UPDATE_SCRIPT" ]; then
 	"$_DOTFILES_UPDATE_SCRIPT" "$_DOTFILES_GIT_DIR_PATH" "$_DOTFILES_WORK_TREE_PATH"

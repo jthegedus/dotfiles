@@ -1,5 +1,5 @@
 #! /usr/bin/env bash
-# This script updates the dotfiles repository with the latest changes from the remote
+# This script updates the dotfiles repository. It executes up to once each day on terminal session start.
 #
 # ARGUMENTS:
 #   $1: The fully qualified path to the dotfiles git directory
