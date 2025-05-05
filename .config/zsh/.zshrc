@@ -1,67 +1,102 @@
-# Aliases
+#######################
+### Configure SHELL ###
+#######################
+
+# Homebrew - configure brew-file wrapper
+if [ -f $(brew --prefix)/etc/brew-wrap ];then
+  source $(brew --prefix)/etc/brew-wrap
+fi
+
+# SSH agent - configure to use Bitwarden
+if [ -n "$SSH_AUTH_SOCK" ]; then
+	if [ "$(uname)" = "Darwin" ]; then
+		_BITWARDEN_SOCK_PATH="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
+		if [ -S "$_BITWARDEN_SOCK_PATH" ]; then
+			export SSH_AUTH_SOCK="$_BITWARDEN_SOCK_PATH"
+		else
+			# Warn if the socket doesn't exist but we expected it
+			printf "Warning: Bitwarden SSH agent socket not found at %s. Keeping existing SSH_AUTH_SOCK: %s\n" "$_BITWARDEN_SOCK_PATH" "$SSH_AUTH_SOCK" >&2
+		fi
+	fi
+	if [ "$(uname)" = "Linux" ]; then
+		# TODO: add support for Linux for Bitwarden SSH agent
+		printf "%s\n" "TODO: add support for Linux for Bitwarden SSH agent"
+	fi
+fi
+
+###############
+### Aliases ###
+###############
+
+# common aliases
+alias dir='dir --color=auto'
+alias grep='ugrep --color=auto'
+alias egrep='ugrep -E --color=auto'
+alias fgrep='ugrep -F --color=auto'
+alias tarnow='tar -acf '
+alias untar='tar -zxvf '
+alias wget='wget -c '
+
+# terminal navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
 alias cl='clear'
 alias q='cd ~'
 alias d='cd ~/dev'
+
 # Git Aliases
 alias gl='git log --all --decorate --oneline --graph'
 alias gs='git status --short'
 alias ga='git add'
 alias gc='git commit -m'
 alias gp='git push'
+alias gpl='git pull'
 
-# Dotfiles Management
-if [ -n "$HOME" ]; then
-	DOTFILES_GIT_DIR_NAME=".dotfiles.git"
-	alias dotfiles="git --git-dir=${HOME}/${DOTFILES_GIT_DIR_NAME} --work-tree=${HOME}"
+# Replace ls with eza
+alias ls='eza -al --color=always --group-directories-first --icons' # preferred listing
+alias la='eza -a --color=always --group-directories-first --icons'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first --icons'  # long format
+alias lt='eza -aT --color=always --group-directories-first --icons' # tree listing
+alias l.='eza -ald --color=always --group-directories-first --icons .*' # show only dotfiles
+
+# Replace some more things with better alternatives
+alias cat='bat --style header --style snip --style changes --style header'
+
+# Replace grep with ripgrep
+alias grep='rg'
+
+# Replace df with eza tree view
+alias df='eza -T'
+
+# Replace du with eza sorted by size
+alias du='eza -s size'
+
+# Specific git alias for working with the dotfiles repository
+_DOTFILES_GIT_DIR_PATH="${HOME}/.dotfiles.git"
+_DOTFILES_WORK_TREE_PATH="${HOME}"
+alias dotfiles="git --git-dir=${_DOTFILES_GIT_DIR_PATH} --work-tree=${_DOTFILES_WORK_TREE_PATH}"
+
+##################
+### Set Prompt ###
+##################
+
+# Call the script to update dotfiles repository
+_DOTFILES_UPDATE_SCRIPT="$_DOTFILES_WORK_TREE_PATH/.config/update_dotfiles_repository.sh"
+if [ -x "$_DOTFILES_UPDATE_SCRIPT" ]; then
+	"$_DOTFILES_UPDATE_SCRIPT" "$_DOTFILES_GIT_DIR_PATH" "$_DOTFILES_WORK_TREE_PATH"
+else
+	printf "%s\n" "Warning: Dotfiles update script not found or not executable: $_DOTFILES_UPDATE_SCRIPT" >&2
 fi
-
-# Set up SSH agent for Bitwarden
-if [ -n "$SSH_AUTH_SOCK" ]; then
-	if [ "$(uname)" = "Darwin" ]; then
-		SSH_AUTH_SOCK="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
-	else
-		# TODO: add support for Linux
-		echo "TODO: add support for Linux"
-	fi
-fi
-
-# Set up Brewfile wrapper
-if [ -f $(brew --prefix)/etc/brew-wrap ];then
-  source $(brew --prefix)/etc/brew-wrap
-fi
-
-### Terminal start ###
-
-# git - pull dotfiles once per day
-_DOTFILES_CHECK_DIR="${TMPDIR:-/tmp}" # Use TMPDIR if set, otherwise /tmp
-_DOTFILES_DATE_STAMP=$(date +%Y-%m-%d)
-_DOTFILES_TIMESTAMP_FILE="${_DOTFILES_CHECK_DIR}/.dotfiles_pull_${_DOTFILES_DATE_STAMP}"
-
-if [ ! -f "$_DOTFILES_TIMESTAMP_FILE" ]; then
-	if command -v dotfiles >/dev/null 2>&1; then
-		printf "Checking for dotfiles updates...\n"
-		if dotfiles pull; then
-			# Create the timestamp file only if pull was successful
-			touch "$_DOTFILES_TIMESTAMP_FILE"
-		else
-			printf "Warning: Dotfiles pull failed. Please check manually.\n"
-		fi
-	else
-		printf "Warning: dotfiles command not found.\n"
-	fi
-fi
-# End git - pull dotfiles once per day
 
 # macchina
 if command -v macchina > /dev/null 2>&1; then
 	macchina
-else
-	printf "Warning: macchina command not found.\n"
 fi
 
-# starship
+# starship prompt
 if command -v starship > /dev/null 2>&1; then
 	eval "$(starship init zsh)"
-else
-	printf "Warning: starship command not found.\n"
 fi
