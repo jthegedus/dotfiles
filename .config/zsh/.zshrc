@@ -2,11 +2,6 @@
 ### Configure SHELL ###
 #######################
 
-# Homebrew - configure brew-file wrapper
-if [ -f $(brew --prefix)/etc/brew-wrap ];then
-  source $(brew --prefix)/etc/brew-wrap
-fi
-
 # SSH agent - configure to use Bitwarden
 if [ -n "$SSH_AUTH_SOCK" ]; then
 	if [ "$(uname)" = "Darwin" ]; then

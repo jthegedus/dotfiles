@@ -10,11 +10,6 @@ if test -f ~/.config/fish/.fish_profile
 	source ~/.config/fish/.fish_profile
 end
 
-# Homebrew - configure brew-file wrapper
-if test -f (brew --prefix)/etc/brew-wrap.fish
-	source (brew --prefix)/etc/brew-wrap.fish
-end
-
 # SSH agent - configure to use Bitwarden
 if test -n "$SSH_AUTH_SOCK"
 	# Check if running on macOS
