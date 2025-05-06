@@ -121,7 +121,7 @@ Another useful pattern is conditionally override git config settings with furthe
 Here is a quick guide to creating your own bare repository for dotfiles using the `$HOME` as the `git work-tree` technique:
 
 * create a bare repository
-* set a temporary alias to use the bare repository
+* set a temporary alias to use the bare repository (you should add this alias to your shell config as well for future use)
 * set the repo to ignore all untracked files (using our alias "dotfiles")
 * set the remote origin to your GitHub (or other) repository
 
