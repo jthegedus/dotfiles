@@ -98,9 +98,9 @@ I use the `.gitconfig` conditional `includeIf` directive to manage sensitive set
 
 The `includeIf` directive in Git configuration files (`.gitconfig`) allow conditionally including settings from other configuration files. The conditions can be:
 
-* `gitdir:<pattern>`: <!-- TODO: descirbe -->
-* `onbranch:<branch-name-pattern>`: <!-- TODO: descirbe -->
-* `hasconfig:remote.<name>.url:<pattern>`: <!-- TODO: descirbe -->
+* `gitdir:<pattern>`: Matches if the Git directory path matches the pattern, useful for applying settings to projects in specific locations (e.g., `~/work/`).
+* `onbranch:<branch-name-pattern>`: Matches if the current branch name matches the pattern, useful for branch-specific workflows or settings.
+* `hasconfig:remote.<name>.url:<pattern>`: Matches if a remote's URL matches the pattern, useful for loading different user configs for work vs. personal projects or different Git platforms.
 
 See the documentation for full explanations - https://git-scm.com/docs/git-config#_conditional_includes
 
