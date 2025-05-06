@@ -85,10 +85,11 @@ I use [Development Containers](https://containers.dev/) in most projects to mana
 The list of tools I use as a base on each system/OS are:
 
 * [fish](https://fishshell.com/): shell
-* [ghostty](https://ghostty.org/): terminal
 * [git](https://git-scm.com/): source control
+* [carapace](https://carapace.sh/): terminal completions
 * [macchina](https://github.com/Macchina-CLI/macchina): terminal util
 * [starship](https://starship.rs/): terminal prompt
+* [ghostty](https://ghostty.org/): terminal
 * [visual studio code](https://code.visualstudio.com/): code editor (use vscode native settings sync)
 * [zed](https://zed.dev/): code editor
 
@@ -117,22 +118,22 @@ Another useful pattern is conditionally override git config settings with furthe
 
 ## Creating your own git work-tree dotfiles repository
 
-<!-- TODO: inline the steps here -->
-* create bare repo `git init --bare $HOME/.dotfiles.git`
-* set alias `alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'`
+Here is a quick guide to creating your own bare repository for dotfiles using the `$HOME` as the `git work-tree` technique.
+
+* create a bare repository: `git init --bare $HOME/.dotfiles.git`
+* set a temporary alias to use the bare repository: `alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'`
 * set the repo to ignore all untracked files (using our alias "dotfiles"): `dotfiles config --local status.showUntrackedFiles no`
-* set the remote: `dotfiles remote add origin git@github.com:jthegedus/dotfiles.git`
+* set the remote: `dotfiles remote add origin git@github.com:<username>/<repo>.git`
 * now add files:
+	```shell
+	cd $HOME
+	dotfiles add .config/starship.toml
+	dotfiles status
+	dotfiles commit -m "feat: capture starship configuration"
+	dotfiles push
+	```
 
-```
-cd $HOME
-dotfiles add .config/starship.toml
-dotfiles status
-dotfiles commit -m "feat: capture starship configuration"
-dotfiles push
-```
-
-Source: [this HackerNews post](https://news.ycombinator.com/item?id=11070797) which was in response to "Ask HN: What do you use to manage dotfiles?".
+For more examples and inspiration see the [HackerNews post](https://news.ycombinator.com/item?id=11070797) where I learnt about this technique.
 
 NB: The `dotfiles` alias is a temporary alias for the current shell session. I include it in my Fish & ZSH configuration files in this repository as a permanent way to quickly interact with my dotfiles repository.
 
