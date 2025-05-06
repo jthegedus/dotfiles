@@ -22,6 +22,7 @@ brew 'sqlite'
 
 tap 'homebrew/cask'
 cask 'alt-tab'
+cask 'only-switch'
 
 tap 'nikitabobko/tap'
 cask 'aerospace'
