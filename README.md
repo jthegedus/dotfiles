@@ -118,20 +118,29 @@ Another useful pattern is conditionally override git config settings with furthe
 
 ## Creating your own git work-tree dotfiles repository
 
-Here is a quick guide to creating your own bare repository for dotfiles using the `$HOME` as the `git work-tree` technique.
+Here is a quick guide to creating your own bare repository for dotfiles using the `$HOME` as the `git work-tree` technique:
 
-* create a bare repository: `git init --bare $HOME/.dotfiles.git`
-* set a temporary alias to use the bare repository: `alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'`
-* set the repo to ignore all untracked files (using our alias "dotfiles"): `dotfiles config --local status.showUntrackedFiles no`
-* set the remote: `dotfiles remote add origin git@github.com:<username>/<repo>.git`
-* now add files:
-	```shell
-	cd $HOME
-	dotfiles add .config/starship.toml
-	dotfiles status
-	dotfiles commit -m "feat: capture starship configuration"
-	dotfiles push
-	```
+* create a bare repository
+* set a temporary alias to use the bare repository
+* set the repo to ignore all untracked files (using our alias "dotfiles")
+* set the remote origin to your GitHub (or other) repository
+
+```shell
+git init --bare $HOME/.dotfiles.git
+alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'
+dotfiles config --local status.showUntrackedFiles no
+dotfiles remote add origin git@github.com:<username>/<repo>.git
+```
+
+Now add any of your existing `.config` files, track with `git` & push:
+
+```shell
+cd $HOME
+dotfiles add .config/starship.toml
+dotfiles status
+dotfiles commit -m "feat: capture starship configuration"
+dotfiles push
+```
 
 For more examples and inspiration see the [HackerNews post](https://news.ycombinator.com/item?id=11070797) where I learnt about this technique.
 
