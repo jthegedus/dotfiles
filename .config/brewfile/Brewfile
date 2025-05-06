@@ -13,6 +13,8 @@ tap 'homebrew/core'
 brew "bash"
 brew "fish"
 brew "zsh"
+### completions
+brew "carapace"
 ### terminal prompt
 brew "macchina"
 brew "starship"

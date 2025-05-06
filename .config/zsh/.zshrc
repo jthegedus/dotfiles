@@ -86,12 +86,23 @@ else
 	printf "%s\n" "Warning: Dotfiles update script not found or not executable: $_DOTFILES_UPDATE_SCRIPT" >&2
 fi
 
-# macchina
+# carapace - shell completions
+#
+# NOTE: disabled due to error.
+#       carapace seems to rely upon other system/zsh dependencies.
+#
+# if command -v carapace > /dev/null 2>&1; then
+# 	export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
+# 	zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+# 	source <(carapace _carapace)
+# fi
+
+# macchina - system information
 if command -v macchina > /dev/null 2>&1; then
 	macchina
 fi
 
-# starship prompt
+# starship - prompt
 if command -v starship > /dev/null 2>&1; then
 	eval "$(starship init zsh)"
 fi

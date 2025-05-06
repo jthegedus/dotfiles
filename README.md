@@ -5,35 +5,60 @@ Used daily on macOS & [BluefinDX](https://projectbluefin.io/)/[Bazzite](https://
 
 ## Quickstart
 
-Clone to your system with https:
+1. Clone the bare repository (this stores the Git history without checking out files yet):
+	```shell
+	git clone --bare https://github.com/jthegedus/dotfiles.git "$HOME/.dotfiles.git"
+	```
+2. Define a temporary alias for interacting with the dotfiles repo:
+	```shell
+	alias dotfiles='git --git-dir="$HOME/.dotfiles.git/" --work-tree="$HOME"'
+	```
+3. Attempt to checkout the files:
+	```shell
+	dotfiles checkout
+	```
+4. Handle Conflicts: If the `checkout` command fails due to existing files you can perform one of two actions:
+	* a) Overwrite existing files with force checkout:
+		```shell
+		dotfiles checkout -f
+		```
+	* b) Backup existing files and replace:
+		```shell
+		# eg: backup the existing .config directory and git checkout
+		mv ~/.config ~/.config.bak
+		dotfiles checkout
+		```
+		Repeat the above for any other reported conflicting folders/files.
+
+5. Configure the repository to ignore other untracked files in `$HOME`:
+	```shell
+	dotfiles config --local status.showUntrackedFiles no
+	```
+
+This creates the following files in your `$HOME` directory:
 
 ```shell
-git clone --separate-git-dir="$HOME/.dotfiles.git" https://github.com/jthegedus/dotfiles.git "$HOME"
-```
-
-<!-- TODO: handle conflicts or override by default? warn users? -->
-
-Creates the following files in your `$HOME` directory:
-
-```shell
-# $HOME
+# in $HOME
 .config/*       <-- most configuration files live here
 .dotfiles/      <-- template files for this repo
 .dotfiles.git/  <-- git dir for this repo
 .gitconfig      <-- shared git config file
 .gitconfig.user <-- git user config created
-                    from .dotfiles/*.template
+					from .dotfiles/*.template
 README.md       <-- this repo README
 .zshenv         <-- tell ZSH to look at ~/.config/zsh/*
 ```
 
 ### Manual post-clone steps
 
-* Create and Store an SSH key and use for Authentication/Commit-Signing in GitHub. I recommend using [BitWarden or an equivalent as an SSH Agent](https://bitwarden.com/help/ssh-agent/) for secure storage and ease of use.
-* Run `cp ~/.dotfiles/.gitconfig.user.template ~/.gitconfig.user` to scaffold the git user file for defining `name`, `email` and ssh `signingkey`. Edit this new file with your settings.
+* Setup Git User:
+	* `cp ~/.dotfiles/.gitconfig.user.template ~/.gitconfig.user`
+	* Fill the `name`, `email` and ssh `signingkey` properties in this new file.
+* Create and Store an SSH key and use for Authentication/Commit-Signing in GitHub.
+	* I recommend using [BitWarden or an equivalent as an SSH Agent](https://bitwarden.com/help/ssh-agent/) for secure storage and ease of use.
 * Install tools in `.config/brewfile/Brewfile*` using [Homebrew](https://brew.sh/) and [Homebrew File](https://github.com/rcmdnk/homebrew-file/):
-    * `brew install rcmdnk/file/brew-file`
-    * `brew file install`
+	* `brew install rcmdnk/file/brew-file`
+	* `brew file install`
 
 ## Longstart
 
@@ -45,9 +70,13 @@ README.md       <-- this repo README
 
 ## Tips
 
+* I recommend using Fish over ZSH. ZSH configuration is here for convenience but I am considering dropping maintenance of it.
 * Fork and modify this repository instead of cloning it directly.
+	* Files that may require modification are:
+		* `.zshenv`
+		* `.config/brewfile/Brewfile*`
 * Instead of using branching codepaths in your scripts for system-specific configurations you could use *git branches* to manage a copy for each system, with common/shared configuration in the master branch.
-    * You would have to merge the common/shared configuration into the other branches on change.
+	* You would have to merge the common/shared configuration into the other branches on change.
 
 ## Tools
 
@@ -62,22 +91,6 @@ The list of tools I use as a base on each system/OS are:
 * [starship](https://starship.rs/): terminal prompt
 * [visual studio code](https://code.visualstudio.com/): code editor (use vscode native settings sync)
 * [zed](https://zed.dev/): code editor
-
-<details>
-<summary>Notable Files</summary>
-
-```
-.config/
-    ...         <-- most configuration files live here
-.dotfiles/
-    .gitconfig.user.template
-.gitconfig
-.gitconfig.user <-- created from .gitconfig.user.template
-                    & imported by .gitconfig
-README.md
-```
-
-</details>
 
 ## Git Conditional Configuration
 
@@ -105,11 +118,11 @@ Another useful pattern is conditionally override git config settings with furthe
 ## Creating your own git work-tree dotfiles repository
 
 <!-- TODO: inline the steps here -->
-create bare repo `git init --bare $HOME/.dotfiles.git`
-set alias `alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'`
-set the repo to ignore all untracked files (using our alias "dotfiles"): `dotfiles config --local status.showUntrackedFiles no`
-set the remote: `dotfiles remote add origin git@github.com:jthegedus/dotfiles.git`
-now add files:
+* create bare repo `git init --bare $HOME/.dotfiles.git`
+* set alias `alias dotfiles='git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'`
+* set the repo to ignore all untracked files (using our alias "dotfiles"): `dotfiles config --local status.showUntrackedFiles no`
+* set the remote: `dotfiles remote add origin git@github.com:jthegedus/dotfiles.git`
+* now add files:
 
 ```
 cd $HOME
@@ -121,15 +134,16 @@ dotfiles push
 
 Source: [this HackerNews post](https://news.ycombinator.com/item?id=11070797) which was in response to "Ask HN: What do you use to manage dotfiles?".
 
+NB: The `dotfiles` alias is a temporary alias for the current shell session. I include it in my Fish & ZSH configuration files in this repository as a permanent way to quickly interact with my dotfiles repository.
+
+NB: Even though all files are untracked thanks to the `status.showUntrackedFiles no` setting, I still recommend using `.gitignore` files when the configuration you wish to include is in a directory with other files you do not wish to include. This is purely a precautionary measure to avoid accidents. Though allow-listing files in `.gitignore` is a recommended practice.
+
 ## Licence
 
-<details>
-<summary>0BSD</summary>
-
-```
 Zero-Clause BSD
 =============
 
+```
 Permission to use, copy, modify, and/or distribute this software for
 any purpose with or without fee is hereby granted.
 
@@ -141,5 +155,3 @@ DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN
 AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
 OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 ```
-
-</details>

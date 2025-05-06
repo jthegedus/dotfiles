@@ -122,12 +122,18 @@ else
 	echo "Warning: Dotfiles update script not found or not executable: $_DOTFILES_UPDATE_SCRIPT" >&2
 end
 
-# macchina
+# carapace - shell completions
+if status --is-interactive; and type -q carapace
+	set -Ux CARAPACE_BRIDGES 'zsh,fish,bash,inshellisense' # optional
+	carapace _carapace | source
+end
+
+# macchina - system information
 if status --is-interactive; and type -q macchina
 	macchina
 end
 
-# starship prompt
+# starship - prompt
 if status --is-interactive; and type -q starship
 	starship init fish | source
 end
