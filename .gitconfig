@@ -1,0 +1,17 @@
+[init]
+	defaultBranch = trunk
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[push]
+	autoSetupRemote = true
+[pull]
+	ff = only
+[color]
+	ui = auto
+# Git User configuration. Used for name, email, and signingkey
+[includeIf "gitdir:~/"]
+	path = ~/.gitconfig.user
