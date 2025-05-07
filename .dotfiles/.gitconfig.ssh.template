@@ -1,0 +1,8 @@
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[user]
+	signingkey = "ssh-ed25519 signing key"

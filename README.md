@@ -18,17 +18,17 @@ Used daily on macOS & [BluefinDX](https://projectbluefin.io/)/[Bazzite](https://
 	dotfiles checkout
 	```
 4. Handle Conflicts: If the `checkout` command fails due to existing files you can perform one of two actions:
-	* a) Overwrite existing files with force checkout:
-		```shell
-		dotfiles checkout -f
-		```
-	* b) Backup existing files and replace:
+	* a) Backup existing files and replace (recommended):
 		```shell
 		# eg: backup the existing .config directory and git checkout
 		mv ~/.config ~/.config.bak
 		dotfiles checkout
 		```
 		Repeat the above for any other reported conflicting folders/files.
+	* b) Overwrite existing files with force checkout:
+		```shell
+		dotfiles checkout -f
+		```
 
 5. Configure the repository to ignore other untracked files in `$HOME`:
 	```shell
@@ -43,8 +43,8 @@ This creates the following files in your `$HOME` directory:
 .dotfiles/      <-- template files for this repo
 .dotfiles.git/  <-- git dir for this repo
 .gitconfig      <-- shared git config file
-.gitconfig.user <-- git user config created
-					from .dotfiles/*.template
+.gitconfig.ssh  <-- created from .dotfiles/*.template
+.gitconfig.user <-- created from .dotfiles/*.template
 README.md       <-- this repo README
 .zshenv         <-- tell ZSH to look at ~/.config/zsh/*
 ```
@@ -52,10 +52,12 @@ README.md       <-- this repo README
 ### Manual post-clone steps
 
 * Setup Git User:
-	* `cp ~/.dotfiles/.gitconfig.user.template ~/.gitconfig.user`
-	* Fill the `name`, `email` and ssh `signingkey` properties in this new file.
-* Create and Store an SSH key and use for Authentication/Commit-Signing in GitHub.
-	* I recommend using [BitWarden or an equivalent as an SSH Agent](https://bitwarden.com/help/ssh-agent/) for secure storage and ease of use.
+	* `cp ~/.dotfiles/.gitconfig.user.template ~/.gitconfig.user` and fill out the `name` and `email` properties in `~/.gitconfig.user`
+	* If you wish to use SSH with Git then:
+		* `cp ~/.dotfiles/.gitconfig.ssh.template ~/.gitconfig.ssh`
+		* Then fill out the `signingkey` properties in `~/.gitconfig.ssh`, otherwise remove the `includeIf` from `~/.gitconfig`
+		* Create and Store an SSH key and use for Authentication/Commit-Signing in GitHub
+		* I recommend using [BitWarden or an equivalent as an SSH Agent](https://bitwarden.com/help/ssh-agent/) for secure storage and ease of use.
 * Install tools in `.config/brewfile/Brewfile*` using [Homebrew](https://brew.sh/) and [Homebrew File](https://github.com/rcmdnk/homebrew-file/):
 	* `brew install rcmdnk/file/brew-file`
 	* `brew file install`
@@ -95,7 +97,7 @@ The list of tools I use as a base on each system/OS are:
 
 ## Git Conditional Configuration
 
-I use the `.gitconfig` conditional `includeIf` directive to manage sensitive settings in a separate configuration file to the ones committed to this repository. Sharing dotfiles across personal and work computers with the sensitive user configuration defined independently is useful.
+I use the `.gitconfig` conditional `includeIf` directive to manage sensitive settings in a separate configuration file to the ones committed to this repository (see the `.dotfiles/` directory for an example). Sharing dotfiles across personal and work computers with the sensitive user configuration defined independently is useful.
 
 The `includeIf` directive in Git configuration files (`.gitconfig`) allow conditionally including settings from other configuration files. The conditions can be:
 

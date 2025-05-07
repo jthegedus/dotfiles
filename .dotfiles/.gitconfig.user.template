@@ -1,4 +1,3 @@
 [user]
 	name = "username"
 	email = "email"
-	signingkey = "ssh-ed25519 signing key"
