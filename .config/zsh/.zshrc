@@ -4,6 +4,7 @@
 
 # SSH agent - configure to use Bitwarden
 if [ -n "$SSH_AUTH_SOCK" ]; then
+
 	if [ "$(uname)" = "Darwin" ]; then
 		_BITWARDEN_SOCK_PATH="$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
 		if [ -S "$_BITWARDEN_SOCK_PATH" ]; then
@@ -13,10 +14,17 @@ if [ -n "$SSH_AUTH_SOCK" ]; then
 			printf "Warning: Bitwarden SSH agent socket not found at %s. Keeping existing SSH_AUTH_SOCK: %s\n" "$_BITWARDEN_SOCK_PATH" "$SSH_AUTH_SOCK" >&2
 		fi
 	fi
+
 	if [ "$(uname)" = "Linux" ]; then
-		# TODO: add support for Linux for Bitwarden SSH agent
-		printf "%s\n" "TODO: add support for Linux for Bitwarden SSH agent"
+		_BITWARDEN_SOCK_PATH="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+		if [ -S "$_BITWARDEN_SOCK_PATH" ]; then
+			export SSH_AUTH_SOCK="$_BITWARDEN_SOCK_PATH"
+		else
+			# Warn if the socket doesn't exist but we expected it
+			printf "Warning: Bitwarden SSH agent socket not found at %s. Keeping existing SSH_AUTH_SOCK: %s\n" "$_BITWARDEN_SOCK_PATH" "$SSH_AUTH_SOCK" >&2
+		fi
 	fi
+
 fi
 
 ###############

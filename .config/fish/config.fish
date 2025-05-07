@@ -10,26 +10,36 @@ if test -f ~/.config/fish/.fish_profile
 	source ~/.config/fish/.fish_profile
 end
 
+# Set XDG_CONFIG_HOME if it's not already set
+if not set -q XDG_CONFIG_HOME
+    set -gx XDG_CONFIG_HOME "$HOME/.config"
+end
+
 # SSH agent - configure to use Bitwarden
 if test -n "$SSH_AUTH_SOCK"
-	# Check if running on macOS
+
 	if test (uname) = "Darwin"
 		# Define the expected path for the Bitwarden SSH agent socket
 		set -l bw_sock_path "$HOME/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"
 		# Check if the Bitwarden socket exists and is actually a socket file
 		if test -S "$bw_sock_path"
-			# Set SSH_AUTH_SOCK to the Bitwarden agent socket and export it globally
 			set -gx SSH_AUTH_SOCK "$bw_sock_path"
 		else
-			# Warn if the socket doesn't exist but we expected it
 			echo "Warning: Bitwarden SSH agent socket not found at $bw_sock_path. Keeping existing SSH_AUTH_SOCK: $SSH_AUTH_SOCK"
 		end
 	end
 
 	if test (uname) = "Linux"
-		# TODO: add support for Linux for Bitwarden SSH agent
-		echo "TODO: add support for Linux for Bitwarden SSH agent"
+		# Define the expected path for the Bitwarden SSH agent socket
+		set -l bw_sock_path "$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+		# Check if the Bitwarden socket exists and is actually a socket file
+		if test -S "$bw_sock_path"
+			set -gx SSH_AUTH_SOCK "$bw_sock_path"
+		else
+			echo "Warning: Bitwarden SSH agent socket not found at $bw_sock_path. Keeping existing SSH_AUTH_SOCK: $SSH_AUTH_SOCK"
+		end
 	end
+
 end
 
 ###############
