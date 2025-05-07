@@ -3,6 +3,17 @@
 
 Used daily on macOS & [BluefinDX](https://projectbluefin.io/)/[Bazzite](https://bazzite.gg/)/[BazziteDX](https://dev.bazzite.gg/) Fedora Linux systems.
 
+## Contents
+
+* [Quickstart](#quickstart)
+	* [Manual post-clone steps](#manual-post-clone-steps)
+* [Longstart](#longstart)
+* [Tips](#tips)
+* [Tools](#tools)
+* [Git Conditional Configuration](#git-conditional-configuration)
+* [Creating your own git work-tree dotfiles repository](#creating-your-own-git-work-tree-dotfiles-repository)
+* [Licence](#licence)
+
 ## Quickstart
 
 1. Clone the bare repository (this stores the Git history without checking out files yet):
