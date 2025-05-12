@@ -50,28 +50,33 @@ This creates the following files in your `$HOME` directory:
 
 ```shell
 # in $HOME
-.config/*       <-- most configuration files live here
+.config/**      <-- configuration files
 .dotfiles/      <-- template files for this repo
-.dotfiles.git/  <-- git dir for this repo
-.gitconfig      <-- shared git config file
-.gitconfig.ssh  <-- created from .dotfiles/*.template
-.gitconfig.user <-- created from .dotfiles/*.template
+.dotfiles.git/  <-- .git dir for this repo
+.gitconfig      <-- core git config file
+.gitconfig.proj <-- created from .dotfiles/*.template
 README.md       <-- this repo README
 .zshenv         <-- tell ZSH to look at ~/.config/zsh/*
 ```
 
 ### Manual post-clone steps
 
-* Setup Git User:
-	* `cp ~/.dotfiles/.gitconfig.user.template ~/.gitconfig.user` and fill out the `name` and `email` properties in `~/.gitconfig.user`
-	* If you wish to use SSH with Git then:
-		* `cp ~/.dotfiles/.gitconfig.ssh.template ~/.gitconfig.ssh`
-		* Then fill out the `signingkey` properties in `~/.gitconfig.ssh`, otherwise remove the `includeIf` from `~/.gitconfig`
-		* Create and Store an SSH key and use for Authentication/Commit-Signing in GitHub
-		* I recommend using [BitWarden or an equivalent as an SSH Agent](https://bitwarden.com/help/ssh-agent/) for secure storage and ease of use.
-* Install tools in `.config/brewfile/Brewfile*` using [Homebrew](https://brew.sh/) and [Homebrew File](https://github.com/rcmdnk/homebrew-file/):
-	* `brew install rcmdnk/file/brew-file`
-	* `brew file install`
+#### Configure Git
+
+* Copy the template `cp ~/.dotfiles/.gitconfig.project.template ~/.gitconfig.proj`
+* Fill out the `name` and `email` properties in `~/.gitconfig.proj`
+* If you do NOT wish to use SSH with Git then:
+	* remove the `gpg`, `commit`, `tag`, and `user` sections from the file
+* If you wish to use SSH with Git then:
+	* fill out the `signingkey` properties in `~/.gitconfig.proj`
+	* Create and Store an SSH key and use for Authentication/Commit-Signing in GitHub
+	* I recommend using [BitWarden or an equivalent as an SSH Agent](https://bitwarden.com/help/ssh-agent/) for secure storage and ease of use.
+
+#### Install Tools
+
+Install tools in `.config/brewfile/Brewfile*` using [Homebrew](https://brew.sh/) and [Homebrew File](https://github.com/rcmdnk/homebrew-file/):
+* `brew install rcmdnk/file/brew-file`
+* `brew file install`
 
 ## Longstart
 
@@ -108,9 +113,11 @@ The list of tools I use as a base on each system/OS are:
 
 ## Git Conditional Configuration
 
-I use the `.gitconfig` conditional `includeIf` directive to manage sensitive settings in a separate configuration file to the ones committed to this repository (see the `.dotfiles/` directory for an example). Sharing dotfiles across personal and work computers with the sensitive user configuration defined independently is useful.
+I use the `.gitconfig` conditional `includeIf` directive to manage per-project Git settings in a separate configuration file to the ones committed to this repository (see the template in `.dotfiles/.gitconfig.project.template` directory for an example).
 
-The `includeIf` directive in Git configuration files (`.gitconfig`) allow conditionally including settings from other configuration files. The conditions can be:
+This is useful to manage different usernames, emails or authentication settings per project.
+
+The `includeIf` directive allows for the following conditionals:
 
 * `gitdir:<pattern>`: Matches if the Git directory path matches the pattern, useful for applying settings to projects in specific locations (e.g., `~/work/`).
 * `onbranch:<branch-name-pattern>`: Matches if the current branch name matches the pattern, useful for branch-specific workflows or settings.
@@ -118,16 +125,22 @@ The `includeIf` directive in Git configuration files (`.gitconfig`) allow condit
 
 See the documentation for full explanations - https://git-scm.com/docs/git-config#_conditional_includes
 
-As an example:
+As an example, this configuration applies the same config for remotes using GitHub via SSH & HTTPS, with another config for a singular organisation remote on BitBucket:
 
 ```properties
-[includeIf "gitdir:~/"]
-	path = ~/.gitconfig.user
+# git settings - GitHub SSH & HTTPS
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+	path = ~/.gitconfig.proj
+[includeIf "hasconfig:remote.*.url:git@github.com:**"]
+	path = ~/.gitconfig.proj
+
+# git settings - project specific SSH
+#    NOTE: ensure this does not overlap with any other includeIf conditions
+[includeIf "hasconfig:remote.*.url:git@bitbucket.org:<organisation_name>/**"]
+	path = ~/<org_name>/.gitconfig.proj_<project_name>
 ```
 
 This includes the specified configuration file if the repository you are running `git` commands against ( where the `.git` directory is) matches the provided pattern.
-
-Another useful pattern is conditionally override git config settings with further deeply-nested `.gitconfig` files and only apply them when in the directory defined by the `includeIf` directive.
 
 ## Creating your own git work-tree dotfiles repository
 
