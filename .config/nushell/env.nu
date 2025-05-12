@@ -2,8 +2,8 @@ use std/util "path add"
 
 let system_kernel_name = (uname | get kernel-name | str trim)
 let bw_sock_path = match $system_kernel_name {
-    "Darwin" => ($env.HOME | path join "/Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"),
-    "Linux" => ($env.HOME | path join "/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"),
+    "Darwin" => ($env.HOME | path join "Library/Containers/com.bitwarden.desktop/Data/.bitwarden-ssh-agent.sock"),
+    "Linux" => ($env.HOME | path join ".var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"),
     _ => $env.SSH_AUTH_SOCK
 }
 let homebrew_path = match $system_kernel_name {
