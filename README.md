@@ -111,6 +111,13 @@ The list of tools I use as a base on each system/OS are:
 * [visual studio code](https://code.visualstudio.com/): code editor (use vscode native settings sync)
 * [zed](https://zed.dev/): code editor
 
+### Change the Shell
+
+Use the following tools to change the shell on most Unix systems:
+
+* `chsh -s $(which <DESIRED_SHELL>) $USER`
+* `sudo usermod --shell $(which <DESIRED_SHELL) $USER` (when `chsh` is not available)
+
 ## Git Conditional Configuration
 
 I use the `.gitconfig` conditional `includeIf` directive to manage per-project Git settings in a separate configuration file to the ones committed to this repository (see the template in `.dotfiles/.gitconfig.project.template` directory for an example).
