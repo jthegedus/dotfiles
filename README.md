@@ -241,6 +241,7 @@ Things to improve:
   * point ZSH to utilise all the Bash configuration & scripts (eg: `.config/bash/**`). Is this as simple as changing ZDOTDIR to `XDG_CONFIG_HOME/bash`?
   * mirror the Fish prompt configuration in ZSH (if I cannot use the Bash configuration for the prompt)
   * set ZSH specific rules (eg: option for "CORRECT")
+* complete Dependencies section (list of tools)
 
 ## Contributions
 
