@@ -16,7 +16,7 @@ function update_dotfiles_repository
     set --local func_dir (dirname $real_path)
 
     # Navigate to function directory and find git repository root
-    set --local repo_root (cd $func_dir && git rev-parse --show-toplevel 2>/dev/null)
+    set --local repo_root (git -C $func_dir rev-parse --show-toplevel 2>/dev/null)
 
     if test -z "$repo_root"
         echo "Error: Could not find git repository from function location: $func_dir" >&2
