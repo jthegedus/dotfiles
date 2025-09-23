@@ -148,7 +148,7 @@ EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish
 **Terminal utilities:**
 * [bat](https://github.com/sharkdp/bat): bat is a cat(1) clone with syntax highlighting and Git integration, enhancing the command-line experience for viewing code and text files.
 * [btop](https://github.com/aristocratos/btop): Btop is a modern, command-line system resource monitor written in C++20, offering features like CPU, memory, disk, and network usage monitoring with GPU support.
-* [caligula](https://github.com/philocalyst/caligula): A terminal-based system monitoring tool.
+* [caligula](https://github.com/ifd3f/caligula): A user-friendly, lightweight TUI for imaging disks.
 * [dysk](https://github.com/Canop/dysk): A linux utility to get information on filesystems, like df but better.
 * [fd](https://github.com/sharkdp/fd): fd is a simple, fast, and user-friendly alternative to find, designed for intuitive filesystem searching with sensible defaults and parallelized directory traversal.
 * [fzf](https://github.com/junegunn/fzf): fzf is a general-purpose command-line fuzzy finder, an interactive filter program for any kind of list with a fuzzy matching algorithm for quick pattern typing.
