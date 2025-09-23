@@ -1,0 +1,19 @@
+theme = "varua"
+
+[editor]
+cursorline = true
+mouse = true
+color-modes = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
+character = "╎"
+skip-levels = 1
+
+[editor.lsp]
+display-messages = true
+auto-signature-help	= true
+display-signature-help-docs	= true
