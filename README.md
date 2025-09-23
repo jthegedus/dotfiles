@@ -59,7 +59,7 @@ For those random edge cases:
 
 Traditional setup with clone & symlink:
 * Clone to your project directory:
-  ````
+  ```
   git clone git@github.com:jthegedus/dotfiles.git ~/dev/dotfiles
   ```
 * Symlink everything:
