@@ -1,0 +1,20 @@
+[init]
+	defaultBranch = trunk
+#	templateDir = ${XDG_CONFIG_HOME}/git/templates
+[push]
+	autoSetupRemote = true
+[pull]
+	ff = only
+#	rebase = true
+[color]
+	ui = auto
+[user]
+	useConfigOnly = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[rerere]
+	enabled = true
