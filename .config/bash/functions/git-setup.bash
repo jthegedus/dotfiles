@@ -1,0 +1,44 @@
+function git-setup() {
+    local name email signingkey ssh_identity ssh_pubkey remote_url
+
+    read -p "Git user.name (GitHub/Lab username): " name
+    read -p "Git user.email (GitHub/Lab username): " email
+    read -p "Git signing key (ssh-ed25519 <HASH>): " signingkey
+    read -p "SSH identity name (e.g., github_username): " ssh_identity
+    read -p "SSH public key (ssh-ed25519 <HASH> [comment]): " ssh_pubkey
+    read -p "Remote URL (git@github.com:OWNER/REPOSITORY.git): " remote_url
+
+    if [[ -z "$name" || -z "$email" ]]; then
+        echo "Error: name and email are required" >&2
+        return 1
+    fi
+
+    git init || return 1
+
+    git config --local user.name "$name" && \
+    git config --local user.email "$email"
+
+    if [[ -n "$signingkey" ]]; then
+        git config --local user.signingkey "$signingkey"
+    fi
+
+    # Configure SSH identity if provided
+    if [[ -n "$ssh_identity" && -n "$ssh_pubkey" ]]; then
+        # Create ~/.ssh directory if it doesn't exist
+        mkdir --parents ~/.ssh
+        chmod 700 ~/.ssh
+
+        # Save public key to file
+        echo "$ssh_pubkey" > ~/.ssh/"$ssh_identity.pub"
+        chmod 644 ~/.ssh/"$ssh_identity.pub"
+
+        # Configure git to use this SSH key
+        git config --local core.sshCommand "ssh -i ~/.ssh/$ssh_identity.pub -o IdentitiesOnly=yes"
+
+        echo "SSH identity configured: ~/.ssh/$ssh_identity.pub"
+    fi
+
+    if [[ -n "$remote_url" ]]; then
+        git remote add origin "$remote_url"
+    fi
+}
