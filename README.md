@@ -231,6 +231,9 @@ brew install \
 
 Things to improve:
 
+* document how Git setup works
+  * wrapper scripts
+* document how SSH setup works for Git Identity & Signing management
 * fix the issue where the update function results in the shell session starting in this repository's `.config/fish/functions` directory
 * mirror the `.config/fish/functions/prettify.fish` script for Bash & ZSH (probably should just rely on using dockerfiles of `sh`, `shfmt` & `shellcheck`)
 * mirror the Fish prompt configuration in Bash
