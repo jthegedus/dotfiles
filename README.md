@@ -231,6 +231,10 @@ brew install \
 
 Things to improve:
 
+* complete git clone wrapper scripts
+  * ask for identity & signing configuration
+  * perform the clone
+  * set the local git configuration to use the previously captured metadata
 * document how Git setup works
   * wrapper scripts
 * document how SSH setup works for Git Identity & Signing management
