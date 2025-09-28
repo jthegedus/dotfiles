@@ -44,6 +44,18 @@ update_dotfiles_repository() {
     fi
 
     echo "Checking for dotfiles updates..."
+
+    # Check SSH agent configuration before attempting git pull
+    if ! ssh-check >/dev/null 2>&1; then
+        echo ""
+        echo "SSH agent check failed. Running diagnostics:"
+        ssh-check
+        echo ""
+        echo "Please fix SSH issues before dotfiles can be updated."
+        echo "Run 'ssh-check' anytime to see diagnostics."
+        return 1
+    fi
+
     if git --git-dir="$git_dir" --work-tree="$work_tree" pull; then
         touch "$timestamp_file"
     else
