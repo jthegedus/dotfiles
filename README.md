@@ -128,9 +128,9 @@ This setup uses a unique SSH authentication workflow that leverages SSH Agent fo
 
 ```
 ┌─────────┐    ┌─────────────────┐    ┌─────────────┐    ┌─────────────────┐    ┌─────────┐
-│   Git   │───▶│ SSH -i key.pub │───▶│ SSH Agent   │───▶│ Bitwarden Agent │───▶│ GitHub  │
-│         │    │                │    │ Lookup      │    │ User Approval   │    │         │
-│ Command │    │ Public Key ID  │    │ Private Key │    │ Required        │    │ Auth    │
+│   Git   │───▶│ SSH -i key.pub  │───▶│ SSH Agent   │───▶│ Bitwarden Agent │───▶│ GitHub  │
+│         │    │                 │    │ Lookup      │    │ User Approval   │    │         │
+│ Command │    │ Public Key ID   │    │ Private Key │    │ Required        │    │ Auth    │
 └─────────┘    └─────────────────┘    └─────────────┘    └─────────────────┘    └─────────┘
 ```
 
