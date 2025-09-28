@@ -98,6 +98,67 @@ Bash has been configured to mirror the Fish configuration structure, with the ro
 - Git aliases: Convenient shortcuts for common git operations
 - Navigation aliases: Quick directory navigation shortcuts
 
+## Git Setup
+
+This repository includes a custom Git setup workflow that emphasizes security and identity management through SSH agent integration.
+
+### git-setup Command
+
+The `git-setup` Fish function provides an interactive way to initialize new Git repositories with proper identity and authentication configuration:
+
+```fish
+git-setup
+```
+
+This command prompts for and configures:
+- **Git identity**: user.name and user.email for commits
+- **Signing key**: SSH key for commit signing (optional)
+- **SSH identity**: Creates and configures SSH key files for authentication
+- **Remote repository**: Sets up origin remote URL
+
+The function automatically:
+1. Initializes a new Git repository
+2. Creates `~/.ssh/{identity}.pub` files with proper permissions
+3. Configures `core.sshCommand` to use the public key for authentication
+4. Sets up the remote origin URL
+
+### SSH Authentication with Public Key and SSH Agent
+
+This setup uses a unique SSH authentication workflow that leverages SSH Agent for enhanced security:
+
+```
+┌─────────┐    ┌─────────────────┐    ┌─────────────┐    ┌─────────────────┐    ┌─────────┐
+│   Git   │───▶│ SSH -i key.pub │───▶│ SSH Agent   │───▶│ Bitwarden Agent │───▶│ GitHub  │
+│         │    │                │    │ Lookup      │    │ User Approval   │    │         │
+│ Command │    │ Public Key ID  │    │ Private Key │    │ Required        │    │ Auth    │
+└─────────┘    └─────────────────┘    └─────────────┘    └─────────────────┘    └─────────┘
+```
+
+**Workflow Details:**
+
+1. **Git initiates SSH connection** using `core.sshCommand` with `-i` pointing to a `.pub` file
+2. **SSH uses the public key** as an identifier to locate the corresponding private key
+3. **SSH Agent lookup** finds the matching private key in the agent's key store
+4. **Bitwarden SSH Agent** requires explicit user authentication/approval
+5. **Authentication completes** to the remote Git repository (GitHub, GitLab, etc.)
+
+**Configuration Example:**
+```bash
+git config --local core.sshCommand "ssh -i ~/.ssh/github_username.pub -o IdentitiesOnly=yes"
+```
+
+**Important Notes:**
+- Public key files (`.pub`) must have `600` permissions in this workflow to avoid SSH warnings
+- This approach provides enhanced security by requiring explicit approval for each authentication
+- The SSH Agent must be running and contain the corresponding private key
+- Bitwarden SSH Agent integration requires user interaction for each authentication attempt
+
+**Security Benefits:**
+- No private keys stored in Git configuration
+- Explicit approval required for each repository access
+- SSH Agent manages key security and access
+- Identity separation per repository/project
+
 ## Dependencies
 
 The tools listed here are required to execute these scripts and are not part of the Shell they're intended to execute in.
