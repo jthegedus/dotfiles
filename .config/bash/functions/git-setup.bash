@@ -24,13 +24,15 @@ function git-setup() {
 
     # Configure SSH identity if provided
     if [[ -n "$ssh_identity" && -n "$ssh_pubkey" ]]; then
-        # Create ~/.ssh directory if it doesn't exist
-        mkdir --parents ~/.ssh
-        chmod 700 ~/.ssh
+        # Check if ~/.ssh directory exists
+        if [[ ! -d ~/.ssh ]]; then
+            echo "Error: ~/.ssh directory does not exist" >&2
+            return 1
+        fi
 
         # Save public key to file
         echo "$ssh_pubkey" > ~/.ssh/"$ssh_identity.pub"
-        chmod 644 ~/.ssh/"$ssh_identity.pub"
+        chmod 600 ~/.ssh/"$ssh_identity.pub"
 
         # Configure git to use this SSH key
         git config --local core.sshCommand "ssh -i ~/.ssh/$ssh_identity.pub -o IdentitiesOnly=yes"
