@@ -290,6 +290,13 @@ brew install \
 
 </details>
 
+### Philosophy on Tools
+
+I have grown to like simple software. These resources have been useful in discovering more in this space:
+
+* [Suckless (software that sucks less)](https://suckless.org/philosophy/): Home of dwm, dmenu and other quality software with a focus on simplicity, clarity, and frugality.
+* [harm-less](https://github.com/173duprot/harm-less/): Inspired by suckless and cat-v, this is a simple single document wiki of suckless practices and minimal software.
+
 ## TODO
 
 Things to improve:
