@@ -227,7 +227,7 @@ EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish
 * [dysk](https://github.com/Canop/dysk): A linux utility to get information on filesystems, like df but better.
 * [fd](https://github.com/sharkdp/fd): fd is a simple, fast, and user-friendly alternative to find, designed for intuitive filesystem searching with sensible defaults and parallelized directory traversal.
 * [fzf](https://github.com/junegunn/fzf): fzf is a general-purpose command-line fuzzy finder, an interactive filter program for any kind of list with a fuzzy matching algorithm for quick pattern typing.
-* [g-ls (`g`)](https://github.com/voidint/g): g is a command-line tool for Linux, macOS, and Windows that simplifies managing and switching between multiple Go environment versions.
+* [g (aka g-ls)](https://github.com/Equationzhao/g): powerful and cross-platform ls
 * [jqp](https://github.com/noahgorstein/jqp): A TUI playground for exploring jq.
 * [lf](https://github.com/gokcehan/lf): lf (as "list files") is a terminal file manager written in Go with a focus on performance.
 * [scooter](https://github.com/mjrusso/scoot): Scoot is a macOS utility that provides fast, keyboard-driven control over the mouse pointer, enabling cursor teleportation and actuation through element-based or grid-based navigation.
