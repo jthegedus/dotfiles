@@ -39,7 +39,7 @@ This is how I recommend managing different software categories across machines:
 This is important given the configuration in this repository references software from some of these categories (Eg: Bitwarden as the SSH Agent).
 
 <details>
-<summary>Core Tools</summary>
+<summary>Core Tools (click to expand)</summary>
 
 Daily drivers:
 - Editor: [Helix](https://helix-editor.com/)
@@ -68,7 +68,7 @@ Traditional setup with clone & symlink:
   ```
 
 <details>
-<summary>Use in DevContainers</summary>
+<summary>Use in DevContainers (click to expand)</summary>
 
 VSCode configuration for using these dotfiles in a DevContainer:
 
@@ -179,7 +179,7 @@ The tools listed here are required to execute these scripts and are not part of 
 EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish, but required to run the `./install.sh` script.
 
 <details>
-<summary>System Tools Required by Shell Scripts</summary>
+<summary>System Tools Required by Shell Scripts (click to expand)</summary>
 
 <!-- TODO: populate this list -->
 * (in progress)
@@ -189,7 +189,7 @@ EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish
 ## Recommended Tools
 
 <details>
-<summary>Tools I recommend checking out</summary>
+<summary>Tools I recommend checking out (click to expand)</summary>
 
 **Shells:**
 * [bash](https://github.com/bminor/bash): GNU Bash is a powerful command-line interpreter and shell that implements the POSIX shell specification with interactive features, job control, and extensive customization options.
@@ -244,7 +244,7 @@ EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish
 </details>
 
 <details>
-<summary>Homebrew Quick Install</summary>
+<summary>Homebrew Quick Install (click to expand)</summary>
 
 ```bash
 ### shells - even reinstall tools like Bash because they are more up to date
