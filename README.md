@@ -205,6 +205,7 @@ EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish
 * [gh](https://github.com/cli/cli): The GitHub CLI (`gh`) brings GitHub concepts like pull requests and issues to the terminal, integrating seamlessly with Git and your code.
 * [git](https://github.com/git/git): Git is a fast, scalable, distributed revision control system with a rich command set for high-level operations and internal access.
 * [jj](https://github.com/jj-vcs/jj): Jujutsu is a version control system designed for ease of use, abstracting its UI and algorithms from storage systems, and is compatible with Git repositories.
+* [lazygit](https://github.com/jesseduffield/lazygit): A simple terminal UI for git commands, providing an intuitive interface for common git operations.
 
 **Terminal editors:**
 * [helix](https://github.com/helix-editor/helix): Helix is a Kakoune/Neovim inspired modal text editor written in Rust, featuring multiple selections and built-in language server support.
@@ -262,7 +263,8 @@ brew install \
   difftastic \
   gh \
   git \
-  jj
+  jj \
+  lazygit
 
 ### terminal editors
 brew install \
