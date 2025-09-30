@@ -90,6 +90,20 @@ Bash has been configured to mirror the Fish configuration structure, with the ro
 
 (work in progress) ZSH has been configured to utilise the same Bash scripts since ZSH is _mostly_ backwards compatible. The root `.zshenv` sets `.config/zsh` as the root directory for the ZSH entrypoint files (which then point to Bash).
 
+### conf.d Load Order & Organization
+
+Files in `conf.d/` load alphabetically. The numbering scheme ensures proper initialization order:
+
+- **00-09**: Environment foundation (XDG paths, core shell config)
+- **10-19**: Security & authentication (SSH agents)
+- **20-29**: PATH & package managers (must load before tools)
+- **30-39**: Standard system utilities (enhance with flags, don't replace)
+- **40-49**: Shell features (completions, prompts)
+- **50-98**: Custom tools (may override system tools - e.g., `bat` → `cat`)
+- **99**: Startup/cleanup tasks (auto-updates)
+
+**Key principle**: Files in the 30s enhance system tools with flags; files in the 50s may replace them entirely. Each custom tool gets its own `50-<toolname>` file.
+
 ## Configuration Features
 
 - Auto-updating dotfiles: Automatically pulls repository updates once per day
