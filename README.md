@@ -128,7 +128,7 @@ This setup uses a unique SSH authentication workflow that leverages SSH Agent fo
 
 ```
 ┌─────────┐    ┌─────────────────┐    ┌─────────────┐    ┌─────────────────┐    ┌─────────┐
-│   Git   │───▶│ SSH -i key.pub  │───▶│ SSH Agent   │───▶│ Bitwarden Agent │───▶│ GitHub  │
+│   Git   │───>│ SSH -i key.pub  │───>│ SSH Agent   │───>│ Bitwarden Agent │───>│ GitHub  │
 │         │    │                 │    │ Lookup      │    │ User Approval   │    │         │
 │ Command │    │ Public Key ID   │    │ Private Key │    │ Required        │    │ Auth    │
 └─────────┘    └─────────────────┘    └─────────────┘    └─────────────────┘    └─────────┘
@@ -218,6 +218,7 @@ EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish
 * [lf](https://github.com/gokcehan/lf): lf (as "list files") is a terminal file manager written in Go with a focus on performance.
 * [scooter](https://github.com/mjrusso/scoot): Scoot is a macOS utility that provides fast, keyboard-driven control over the mouse pointer, enabling cursor teleportation and actuation through element-based or grid-based navigation.
 * [tealdeer (`tldr`)](https://github.com/dbrgn/tealdeer): A very fast implementation of tldr in Rust.
+* [tmux](https://github.com/tmux/tmux): tmux is a terminal multiplexer that allows multiple terminal sessions to be accessed and controlled from a single screen, enabling session persistence and detachment.
 * [uutils-coreutils](https://github.com/uutils/coreutils): Cross-platform Rust rewrite of the GNU coreutils.
 * [ugrep](https://github.com/Genivia/ugrep): ugrep: ultra fast grep with interactive TUI, fuzzy search, boolean queries, hexdumps and more.
 * [wget](https://github.com/mirror/wget): GNU Wget is a free utility for non-interactive download of files from the Web.
@@ -278,6 +279,7 @@ brew install \
   lf \
   scooter \
   tealdeer \
+  tmux \
   uutils-coreutils \
   ugrep \
   wget \
