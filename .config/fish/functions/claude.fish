@@ -2,7 +2,7 @@
 function ccs --description "Claude Code with Secrets: Run claude command with environment variables from .env.mcp.secrets"
     set --local var_count 0
 
-    if test --file .env.mcp.secrets
+    if test -f .env.mcp.secrets
         while read --local line
             if string match --quiet "*=*" -- "$line"
                 set --local key_value (string split --max 1 "=" -- "$line")
