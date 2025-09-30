@@ -27,7 +27,7 @@ function ssh-check --description "Check SSH agent status and provide diagnostics
                 echo "   → Action: Ensure Bitwarden SSH agent is enabled in Settings → SSH Agent" >&2
                 set has_error 1
             else if test $exit_code -eq 1
-                echo "⚠️  No SSH keys loaded in agent" >&2
+                echo "⚠️ No SSH keys loaded in agent" >&2
                 echo "   The agent is running but has no identities." >&2
                 echo "   → Action: Unlock your Bitwarden vault (the desktop app must be unlocked)" >&2
                 echo "   → Action: Ensure SSH keys are stored in Bitwarden and have 'SSH agent' enabled" >&2
@@ -36,12 +36,11 @@ function ssh-check --description "Check SSH agent status and provide diagnostics
             end
         else
             set --local key_count (ssh-add -l | wc -l)
-            echo "✅  SSH agent is responding with $key_count key(s) loaded"
+            echo "✅ SSH agent is responding with $key_count key(s) loaded"
         end
     end
 
     # Final summary
-    echo ""
     if test $has_error -eq 0
         echo "✅ SSH agent is properly configured and ready for use"
         echo "   You should be able to perform Git operations requiring SSH authentication"
