@@ -7,16 +7,59 @@ Bash for AI? Yes! AI tools usually inherit the current terminal session's config
 It is often unclear what tools our AI tools have access to and how we can configure them to utilise our bespoke tooling and configuration.
 By explicitly mirroring configuration between Shells we can **TRY** to better control the environment we run our AI tools.
 
+<!-- Table of Contents -->
+- [Configuration Features](#configuration-features)
+- [Install](#install)
 - [Goals & Non-goals](#goals--non-goals)
 - [Managing Software](#managing-software)
-- [Install](#install)
 - [Structure](#structure)
-- [Configuration Features](#configuration-features)
+- [Aliases](#aliases)
+- [Git Setup](#git-setup)
 - [Dependencies](#dependencies)
 - [Recommended Tools](#recommended-tools)
+- [Philosophy on Tools](#philosophy-on-tools)
 - [TODO](#todo)
 - [Contributions](#contributions)
 - [Licence](#licence)
+
+## Configuration Features
+
+- Auto-updating dotfiles: Automatically pulls repository updates once per day
+- SSH agent integration: Bitwarden SSH agent configuration for both macOS and Linux
+- Environment configuration: Shell identification and XDG Base Directory compliance for proper configuration directories
+- File listing with lla: Modern file explorer with multiple views (tree, git, timeline, size map)
+- Enhanced grep with ugrep: Ultra-fast grep with interactive TUI and fuzzy search
+- Syntax highlighting: bat replaces cat for enhanced file viewing
+- Smart directory navigation: zoxide learns frequently used directories
+- Git aliases: Convenient shortcuts for common git operations
+- Navigation aliases: Quick directory navigation shortcuts
+
+## Install
+
+Traditional setup with clone & symlink:
+* Clone to your project directory:
+  ```
+  git clone git@github.com:jthegedus/dotfiles.git ~/dev/dotfiles
+  ```
+* Symlink everything:
+  ```
+  bash ./install.sh
+  ```
+
+<details>
+<summary>Use in DevContainers (click to expand)</summary>
+
+VSCode configuration for using these dotfiles in a DevContainer:
+
+```json
+{
+  "dotfiles.repository": "jthegedus/dotfiles",
+  "dotfiles.targetPath": "~/dotfiles",
+  "dotfiles.installCommand": "install.sh"
+}
+```
+
+</details>
 
 ## Goals & Non-goals
 
@@ -55,33 +98,6 @@ For those random edge cases:
 
 </details>
 
-## Install
-
-Traditional setup with clone & symlink:
-* Clone to your project directory:
-  ```
-  git clone git@github.com:jthegedus/dotfiles.git ~/dev/dotfiles
-  ```
-* Symlink everything:
-  ```
-  bash ./install.sh
-  ```
-
-<details>
-<summary>Use in DevContainers (click to expand)</summary>
-
-VSCode configuration for using these dotfiles in a DevContainer:
-
-```json
-{
-  "dotfiles.repository": "jthegedus/dotfiles",
-  "dotfiles.targetPath": "~/dotfiles",
-  "dotfiles.installCommand": "install.sh"
-}
-```
-
-</details>
-
 ## Structure
 
 Fish defaults to using `.config/fish/*` with a `conf.d/` directory (a pattern from Apache projects) to control the automatic loading and order of startup scripts.
@@ -104,23 +120,12 @@ Files in `conf.d/` load alphabetically. The numbering scheme ensures proper init
 
 **Key principle**: Files in the 30s enhance system tools with flags; files in the 50s may replace them entirely (e.g., `bat` → `cat`, `lla` → `ll`, `ugrep` → `grep`). Each custom tool gets its own `50-<toolname>` file.
 
-## Configuration Features
-
-- Auto-updating dotfiles: Automatically pulls repository updates once per day
-- SSH agent integration: Bitwarden SSH agent configuration for both macOS and Linux
-- Environment configuration: Shell identification and XDG Base Directory compliance for proper configuration directories
-- File listing with lla: Modern file explorer with multiple views (tree, git, timeline, size map)
-- Enhanced grep with ugrep: Ultra-fast grep with interactive TUI and fuzzy search
-- Syntax highlighting: bat replaces cat for enhanced file viewing
-- Smart directory navigation: zoxide learns frequently used directories
-- Git aliases: Convenient shortcuts for common git operations
-- Navigation aliases: Quick directory navigation shortcuts
-
 ## Aliases
 
 This repository provides numerous aliases to enhance productivity. Aliases load conditionally based on available tools, with fallbacks for missing dependencies.
 
-### File Listing & Navigation
+<details>
+<summary>File Listing & Navigation</summary>
 
 **Primary listing (priority order):**
 - `ll` → `lla -T` when lla available (tree view)
@@ -146,7 +151,10 @@ This repository provides numerous aliases to enhance productivity. Aliases load 
 - `d` → `cd ~/dev` - jump to dev directory
 - `cl` → `clear` - clear terminal
 
-### File Operations
+</details>
+
+<details>
+<summary>File Operations</summary>
 
 **System utilities with enhanced defaults:**
 - `rm` → `rm -Iv` - interactive mode with verbose output
@@ -157,7 +165,10 @@ This repository provides numerous aliases to enhance productivity. Aliases load 
 **File viewing** (when bat installed):
 - `cat` → `bat` - syntax-highlighted file viewing
 
-### Search & Grep
+</details>
+
+<details>
+<summary>Search & Grep</summary>
 
 **Process search:**
 - `p <pattern>` → `ps aux | ugrep <pattern>` - search running processes
@@ -182,7 +193,10 @@ This repository provides numerous aliases to enhance productivity. Aliases load 
 - `xdump` → `ugrep -X ""` - hexdump files
 - `zmore` → `ugrep+ -z -I -+ --pager ""` - view compressed/archived files
 
-### Git Shortcuts
+</details>
+
+<details>
+<summary>Git Shortcuts</summary>
 
 - `gl` → `git log --all --decorate --oneline --graph` - pretty log graph
 - `gs` → `git status --short` - compact status
@@ -191,12 +205,17 @@ This repository provides numerous aliases to enhance productivity. Aliases load 
 - `gp` → `git push` - push to remote
 - `gpl` → `git pull` - pull from remote
 
-### Notes
+</details>
+
+<details>
+<summary>Notes</summary>
 
 - Aliases in the 50s (e.g., `lla`, `bat`, `ugrep`) override base aliases when available
 - Without optional tools, fallback aliases provide basic functionality
 - All aliases work in both Fish and Bash shells
 - LLA's jump directory feature auto-configures on first shell load when lla is installed
+
+</details>
 
 ## Git Setup
 
@@ -495,7 +514,7 @@ brew install \
 
 </details>
 
-### Philosophy on Tools
+## Philosophy on Tools
 
 I have grown to like simple software. These resources have been useful in discovering more in this space:
 
