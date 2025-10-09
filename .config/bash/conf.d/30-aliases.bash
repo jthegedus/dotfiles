@@ -4,7 +4,6 @@
 
 # modifications
 alias ll='ls -Alh'
-alias tree='tree -a -C -I .git'
 alias rm='rm -Iv'
 alias mv='mv -i'
 alias df='df -h'

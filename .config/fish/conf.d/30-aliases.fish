@@ -3,12 +3,12 @@
 # Do NOT add aliases for non-standard tools.
 
 # modifications
-alias ll 'ls --almost-all --long --human-readable'
-alias tree 'tree -a -C -I .git'
-alias rm 'rm --interactive --verbose'
-alias mv 'mv --interactive'
-alias df 'df --human-readable'
-alias du 'du --human-readable --max-depth=1'
+# Use POSIX short flags for cross-platform compatibility (macOS BSD + Linux GNU + uutils)
+alias ll 'ls -Alh'
+alias rm 'rm -Iv'
+alias mv 'mv -i'
+alias df 'df -h'
+alias du 'du -h -d 1'
 alias p 'ps aux | ugrep $1'
 
 # custom
