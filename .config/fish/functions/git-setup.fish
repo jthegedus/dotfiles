@@ -12,8 +12,11 @@ function git-setup --description "Initialize git repository with user configurat
         return 1
     end
 
-    git init
-    or return 1
+    # Initialize git repository only if not already initialized
+    if not git rev-parse --git-dir >/dev/null 2>&1
+        git init
+        or return 1
+    end
 
     git config --local user.name "$name"
     and git config --local user.email "$email"

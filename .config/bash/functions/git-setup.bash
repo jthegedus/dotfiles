@@ -13,7 +13,10 @@ function git-setup() {
         return 1
     fi
 
-    git init || return 1
+    # Initialize git repository only if not already initialized
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        git init || return 1
+    fi
 
     git config --local user.name "$name" && \
     git config --local user.email "$email"
