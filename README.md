@@ -402,7 +402,7 @@ See the [Recommended Tools](#recommended-tools) section for the complete list an
 **Shells:**
 * [bash](https://github.com/bminor/bash): GNU Bash is a powerful command-line interpreter and shell that implements the POSIX shell specification with interactive features, job control, and extensive customization options.
 * [fish](https://github.com/fish-shell/fish-shell): The user-friendly command line shell.
-* [zsh](https://github.com/ohmyzsh/ohmyzsh): Oh My Zsh is an open-source, community-driven framework for managing your Zsh configuration, enhancing your terminal with plugins and themes.
+* [zsh](https://www.zsh.org/) ([GitHub](https://github.com/zsh-users/zsh)): UNIX shell (command interpreter)
 
 **Completions:**
 * [carapace](https://github.com/carapace-sh/carapace): Carapace is a command argument completion generator that supports a wide range of shells, including Bash, Fish, Zsh, and Powershell.
@@ -410,43 +410,43 @@ See the [Recommended Tools](#recommended-tools) section for the complete list an
 **Version control:**
 * [delta](https://github.com/dandavison/delta): A syntax-highlighting pager for git, diff, and grep output.
 * [difftastic (`difft`)](https://github.com/Wilfred/difftastic): A structural diff that understands syntax.
-* [gh](https://github.com/cli/cli): The GitHub CLI (`gh`) brings GitHub concepts like pull requests and issues to the terminal, integrating seamlessly with Git and your code.
+* [gh](https://cli.github.com/) ([GitHub](https://github.com/cli/cli)): The GitHub CLI (`gh`) brings GitHub concepts like pull requests and issues to the terminal, integrating seamlessly with Git and your code.
 * [git](https://github.com/git/git): Git is a fast, scalable, distributed revision control system with a rich command set for high-level operations and internal access.
 * [jj](https://github.com/jj-vcs/jj): Jujutsu is a version control system designed for ease of use, abstracting its UI and algorithms from storage systems, and is compatible with Git repositories.
 * [lazygit](https://github.com/jesseduffield/lazygit): A simple terminal UI for git commands, providing an intuitive interface for common git operations.
 
 **Terminal editors:**
-* [helix](https://github.com/helix-editor/helix): Helix is a Kakoune/Neovim inspired modal text editor written in Rust, featuring multiple selections and built-in language server support.
+* [helix](https://helix-editor.com/) ([GitHub](https://github.com/helix-editor/helix)): Helix is a Kakoune/Neovim inspired modal text editor written in Rust, featuring multiple selections and built-in language server support.
 * [vim](https://github.com/vim/vim): Vim is a highly configurable text editor built to enable efficient text editing, offering features like multi-level undo, syntax highlighting, and a powerful scripting language.
 
 **Container utils:**
-* [talosctl](https://github.com/siderolabs/talos): Talos is a modern, secure, immutable, and minimal operating system designed specifically for running Kubernetes, managed entirely via an API.
-* [podman](https://github.com/containers/podman): Podman is a tool for managing containers and images, volumes, and pods, offering a Docker-compatible CLI and a daemonless architecture for enhanced security and efficiency.
+* [talosctl](https://www.talos.dev/) ([GitHub](https://github.com/siderolabs/talos)): Talos is a modern, secure, immutable, and minimal operating system designed specifically for running Kubernetes, managed entirely via an API.
+* [podman](https://podman.io/) ([GitHub](https://github.com/containers/podman)): Podman is a tool for managing containers and images, volumes, and pods, offering a Docker-compatible CLI and a daemonless architecture for enhanced security and efficiency.
 * [podman-compose](https://github.com/containers/podman-compose): Podman Compose is an implementation of the Compose Specification that uses Podman as its backend, focusing on rootless and daemon-less operation.
 * [lazydocker](https://github.com/jesseduffield/lazydocker): A simple terminal UI for Docker and Docker Compose, written in Go with the gocui library.
 * [kubectx](https://github.com/ahmetb/kubectx): Faster way to switch between clusters and namespaces in kubectl.
 * [fubectl](https://github.com/kubermatic/fubectl): Reduces repetitive interactions with kubectl.
-* [k9s](https://github.com/derailed/k9s): K9s is a terminal UI to manage Kubernetes clusters, making it easier to navigate, observe, and manage applications with continuous resource watching and command interaction.
+* [k9s](https://k9scli.io/) ([GitHub](https://github.com/derailed/k9s)): K9s is a terminal UI to manage Kubernetes clusters, making it easier to navigate, observe, and manage applications with continuous resource watching and command interaction.
 * [stern](https://github.com/stern/stern): Multi pod and container log tailing for Kubernetes.
 
 **Terminal utilities:**
 * [bat](https://github.com/sharkdp/bat): bat is a cat(1) clone with syntax highlighting and Git integration, enhancing the command-line experience for viewing code and text files.
 * [btop](https://github.com/aristocratos/btop): Btop is a modern, command-line system resource monitor written in C++20, offering features like CPU, memory, disk, and network usage monitoring with GPU support.
 * [caligula](https://github.com/ifd3f/caligula): A user-friendly, lightweight TUI for imaging disks.
-* [dysk](https://github.com/Canop/dysk): A linux utility to get information on filesystems, like df but better.
+* [dysk](https://dystroy.org/dysk/) ([GitHub](https://github.com/Canop/dysk)): A linux utility to get information on filesystems, like df but better.
 * [fd](https://github.com/sharkdp/fd): fd is a simple, fast, and user-friendly alternative to find, designed for intuitive filesystem searching with sensible defaults and parallelized directory traversal.
 * [fzf](https://github.com/junegunn/fzf): fzf is a general-purpose command-line fuzzy finder, an interactive filter program for any kind of list with a fuzzy matching algorithm for quick pattern typing.
 * [lla](https://github.com/chaqchase/lla): A modern, fast terminal file explorer with multiple views, plugins, and Git integration
 * [jqp](https://github.com/noahgorstein/jqp): A TUI playground for exploring jq.
 * [lf](https://github.com/gokcehan/lf): lf (as "list files") is a terminal file manager written in Go with a focus on performance.
-* [scooter](https://github.com/mjrusso/scoot): Scoot is a macOS utility that provides fast, keyboard-driven control over the mouse pointer, enabling cursor teleportation and actuation through element-based or grid-based navigation.
-* [tealdeer (`tldr`)](https://github.com/dbrgn/tealdeer): A very fast implementation of tldr in Rust.
-* [tmux](https://github.com/tmux/tmux): tmux is a terminal multiplexer that allows multiple terminal sessions to be accessed and controlled from a single screen, enabling session persistence and detachment.
-* [uutils-coreutils](https://github.com/uutils/coreutils): Cross-platform Rust rewrite of the GNU coreutils.
-* [ugrep](https://github.com/Genivia/ugrep): ugrep: ultra fast grep with interactive TUI, fuzzy search, boolean queries, hexdumps and more.
-* [wget](https://github.com/mirror/wget): GNU Wget is a free utility for non-interactive download of files from the Web.
+* [scooter](https://github.com/thomasschafer/scooter): Interactive find and replace in the terminal
+* [tealdeer (`tldr`)](https://dbrgn.github.io/tealdeer/) ([GitHub](https://github.com/dbrgn/tealdeer)): A very fast implementation of tldr in Rust.
+* [tmux](https://tmux.github.io/) ([GitHub](https://github.com/tmux/tmux)): tmux is a terminal multiplexer that allows multiple terminal sessions to be accessed and controlled from a single screen, enabling session persistence and detachment.
+* [uutils-coreutils](https://uutils.github.io/coreutils/) ([GitHub](https://github.com/uutils/coreutils)): Cross-platform Rust rewrite of the GNU coreutils.
+* [ugrep](https://ugrep.com/) ([GitHub](https://github.com/Genivia/ugrep)): ugrep: ultra fast grep with interactive TUI, fuzzy search, boolean queries, hexdumps and more.
+* [wget](https://www.gnu.org/software/wget/) ([GitHub](https://github.com/mirror/wget)): GNU Wget is a free utility for non-interactive download of files from the Web.
 * [xh](https://github.com/ducaale/xh): xh is a user-friendly and performant command-line tool for making HTTP requests, inspired by HTTPie and focused on speed.
-* [xz](https://github.com/tukaani-project/xz): XZ Utils is free general-purpose data compression software with a high compression ratio.
+* [xz](https://tukaani.org/xz/) ([GitHub](https://github.com/tukaani-project/xz)): XZ Utils is free general-purpose data compression software with a high compression ratio.
 * [zoxide (`z`)](https://github.com/ajeetdsouza/zoxide): zoxide is a smarter cd command that remembers your frequently used directories, allowing you to jump to them with fewer keystrokes across all major shells.
 
 </details>
