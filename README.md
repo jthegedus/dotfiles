@@ -15,9 +15,9 @@ By explicitly mirroring configuration between Shells we can **TRY** to better co
 - [Structure](#structure)
 - [Aliases](#aliases)
 - [Git Setup](#git-setup)
-- [Dependencies](#dependencies)
 - [Recommended Tools](#recommended-tools)
 - [Philosophy on Tools](#philosophy-on-tools)
+- [Dependencies](#dependencies)
 - [TODO](#todo)
 - [Contributions](#contributions)
 - [Licence](#licence)
@@ -278,122 +278,6 @@ git config --local core.sshCommand "ssh -i ~/.ssh/github_username.pub -o Identit
 - SSH Agent manages key security and access
 - Identity separation per repository/project
 
-## Dependencies
-
-The tools listed here are required to execute these scripts and are not part of the Shell they're intended to execute in.
-EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish, but required to run the `./install.sh` script.
-
-### Tool Categories by Installation Method
-
-This section categorizes all tools referenced in the shell configurations and installation scripts by how they should be installed for cross-platform compatibility.
-
-<details>
-<summary>uutils-coreutils (Cross-Platform via Homebrew) (click to expand)</summary>
-
-These are core Unix utilities reimplemented in Rust. Install via Homebrew to ensure consistent behavior across macOS and Linux:
-
-```bash
-brew install uutils-coreutils
-```
-
-**Tools from uutils-coreutils used in this repository:**
-- `ls` - list directory contents
-- `rm` - remove files/directories
-- `mv` - move/rename files
-- `cp` - copy files
-- `df` - report file system disk space usage
-- `du` - estimate file space usage
-- `stat` - display file/filesystem status
-- `ln` - create links between files
-- `chmod` - change file mode bits
-- `mkdir` - create directories
-- `find` - search for files in directory hierarchy
-- `cat` - concatenate files and print (optionally replaced by `bat`)
-
-**Complete list of uutils-coreutils tools:**
-arch, b2sum, base32, base64, basename, basenc, cat, chcon, chgrp, chmod, chown, chroot, cksum, comm, cp, csplit, cut, date, dd, df, dir, dircolors, dirname, du, echo, env, expand, expr, factor, false, fmt, fold, groups, head, hostid, hostname, id, install, join, kill, link, ln, logname, ls, md5sum, mkdir, mkfifo, mknod, mktemp, mv, nice, nl, nohup, nproc, numfmt, od, paste, pathchk, pinky, pr, printenv, printf, ptx, pwd, readlink, realpath, rm, rmdir, runcon, seq, sha1sum, sha224sum, sha256sum, sha384sum, sha512sum, shred, shuf, sleep, sort, split, stat, stdbuf, stty, sum, sync, tac, tail, tee, test, timeout, touch, tr, true, truncate, tsort, tty, uname, unexpand, uniq, unlink, uptime, users, vdir, wc, who, whoami, yes
-
-**Note on compatibility:**
-- uutils-coreutils supports both GNU-style long flags and BSD/POSIX short flags
-- To maintain cross-platform compatibility, prefer POSIX short flags in shell aliases
-
-</details>
-
-<details>
-<summary>System Native (Platform Dependent) (click to expand)</summary>
-
-These tools are typically provided by the operating system but may have different flags/behavior between macOS (BSD) and Linux (GNU):
-
-**Version Control:**
-- `git` - distributed version control system (install latest via Homebrew)
-
-**Process Management:**
-- `ps` - process status (BSD vs GNU syntax differs)
-- `uname` - print system information
-
-**Note:** While these exist on most systems, consider installing via Homebrew for consistency.
-
-</details>
-
-<details>
-<summary>Third-Party Tools (Homebrew) (click to expand)</summary>
-
-Modern CLI tools that enhance or replace standard utilities:
-
-**Shell Enhancements:**
-- `bat` - cat clone with syntax highlighting (replaces `cat` when available)
-- `lla` - modern file explorer with multiple views, plugins, and Git integration
-- `zoxide` - smarter cd command that learns your habits
-- `ugrep` - ultra-fast grep with interactive TUI and fuzzy search
-- `tree` - directory tree visualization
-
-**Shells:**
-- `bash` - GNU Bash shell (install via Homebrew for latest version)
-- `fish` - friendly interactive shell
-- `zsh` - Z shell with advanced features
-
-**Development Tools:**
-- `delta` - syntax-highlighting pager for git/diff
-- `difftastic` - structural diff tool
-- `gh` - GitHub CLI
-- `jj` - Jujutsu version control
-- `lazygit` - terminal UI for git
-- `helix` - modern modal text editor
-- `vim` - classic text editor
-
-**System Utilities:**
-- `btop` - system resource monitor
-- `fd` - user-friendly find alternative
-- `fzf` - fuzzy finder for command-line
-- `tealdeer` - fast tldr client
-- `tmux` - terminal multiplexer
-- `wget` - network downloader
-- `xh` - friendly HTTP client
-
-See the [Recommended Tools](#recommended-tools) section for the complete list and installation commands.
-
-</details>
-
-<details>
-<summary>Installation Scripts Dependencies (click to expand)</summary>
-
-**Required for `install.sh`:**
-- `bash` - script interpreter
-- `find` - locate files (uutils-coreutils)
-- `ln` - create symbolic links (uutils-coreutils)
-- `mkdir` - create directories (uutils-coreutils)
-- `chmod` - change permissions (uutils-coreutils)
-- `cp` - copy files (uutils-coreutils)
-- `stat` - file statistics (uutils-coreutils or platform-specific)
-- `realpath` - resolve path (uutils-coreutils)
-- `dirname` - directory name (uutils-coreutils)
-
-**Platform-specific considerations:**
-- `stat` command syntax differs: GNU uses `-c %a`, macOS BSD uses `-f %A`
-- Install uutils-coreutils to ensure consistent behavior
-
-</details>
-
 ## Recommended Tools
 
 <details>
@@ -520,6 +404,122 @@ I have grown to like simple software. These resources have been useful in discov
 
 * [Suckless (software that sucks less)](https://suckless.org/philosophy/): Home of dwm, dmenu and other quality software with a focus on simplicity, clarity, and frugality.
 * [harm-less](https://github.com/173duprot/harm-less/): Inspired by suckless and cat-v, this is a simple single document wiki of suckless practices and minimal software.
+
+## Dependencies
+
+The tools listed here are required to execute these scripts and are not part of the Shell they're intended to execute in.
+EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish, but required to run the `./install.sh` script.
+
+### Tool Categories by Installation Method
+
+This section categorizes all tools referenced in the shell configurations and installation scripts by how they should be installed for cross-platform compatibility.
+
+<details>
+<summary>uutils-coreutils (Cross-Platform via Homebrew) (click to expand)</summary>
+
+These are core Unix utilities reimplemented in Rust. Install via Homebrew to ensure consistent behavior across macOS and Linux:
+
+```bash
+brew install uutils-coreutils
+```
+
+**Tools from uutils-coreutils used in this repository:**
+- `ls` - list directory contents
+- `rm` - remove files/directories
+- `mv` - move/rename files
+- `cp` - copy files
+- `df` - report file system disk space usage
+- `du` - estimate file space usage
+- `stat` - display file/filesystem status
+- `ln` - create links between files
+- `chmod` - change file mode bits
+- `mkdir` - create directories
+- `find` - search for files in directory hierarchy
+- `cat` - concatenate files and print (optionally replaced by `bat`)
+
+**Complete list of uutils-coreutils tools:**
+arch, b2sum, base32, base64, basename, basenc, cat, chcon, chgrp, chmod, chown, chroot, cksum, comm, cp, csplit, cut, date, dd, df, dir, dircolors, dirname, du, echo, env, expand, expr, factor, false, fmt, fold, groups, head, hostid, hostname, id, install, join, kill, link, ln, logname, ls, md5sum, mkdir, mkfifo, mknod, mktemp, mv, nice, nl, nohup, nproc, numfmt, od, paste, pathchk, pinky, pr, printenv, printf, ptx, pwd, readlink, realpath, rm, rmdir, runcon, seq, sha1sum, sha224sum, sha256sum, sha384sum, sha512sum, shred, shuf, sleep, sort, split, stat, stdbuf, stty, sum, sync, tac, tail, tee, test, timeout, touch, tr, true, truncate, tsort, tty, uname, unexpand, uniq, unlink, uptime, users, vdir, wc, who, whoami, yes
+
+**Note on compatibility:**
+- uutils-coreutils supports both GNU-style long flags and BSD/POSIX short flags
+- To maintain cross-platform compatibility, prefer POSIX short flags in shell aliases
+
+</details>
+
+<details>
+<summary>System Native (Platform Dependent) (click to expand)</summary>
+
+These tools are typically provided by the operating system but may have different flags/behavior between macOS (BSD) and Linux (GNU):
+
+**Version Control:**
+- `git` - distributed version control system (install latest via Homebrew)
+
+**Process Management:**
+- `ps` - process status (BSD vs GNU syntax differs)
+- `uname` - print system information
+
+**Note:** While these exist on most systems, consider installing via Homebrew for consistency.
+
+</details>
+
+<details>
+<summary>Third-Party Tools (Homebrew) (click to expand)</summary>
+
+Modern CLI tools that enhance or replace standard utilities:
+
+**Shell Enhancements:**
+- `bat` - cat clone with syntax highlighting (replaces `cat` when available)
+- `lla` - modern file explorer with multiple views, plugins, and Git integration
+- `zoxide` - smarter cd command that learns your habits
+- `ugrep` - ultra-fast grep with interactive TUI and fuzzy search
+- `tree` - directory tree visualization
+
+**Shells:**
+- `bash` - GNU Bash shell (install via Homebrew for latest version)
+- `fish` - friendly interactive shell
+- `zsh` - Z shell with advanced features
+
+**Development Tools:**
+- `delta` - syntax-highlighting pager for git/diff
+- `difftastic` - structural diff tool
+- `gh` - GitHub CLI
+- `jj` - Jujutsu version control
+- `lazygit` - terminal UI for git
+- `helix` - modern modal text editor
+- `vim` - classic text editor
+
+**System Utilities:**
+- `btop` - system resource monitor
+- `fd` - user-friendly find alternative
+- `fzf` - fuzzy finder for command-line
+- `tealdeer` - fast tldr client
+- `tmux` - terminal multiplexer
+- `wget` - network downloader
+- `xh` - friendly HTTP client
+
+See the [Recommended Tools](#recommended-tools) section for the complete list and installation commands.
+
+</details>
+
+<details>
+<summary>Installation Scripts Dependencies (click to expand)</summary>
+
+**Required for `install.sh`:**
+- `bash` - script interpreter
+- `find` - locate files (uutils-coreutils)
+- `ln` - create symbolic links (uutils-coreutils)
+- `mkdir` - create directories (uutils-coreutils)
+- `chmod` - change permissions (uutils-coreutils)
+- `cp` - copy files (uutils-coreutils)
+- `stat` - file statistics (uutils-coreutils or platform-specific)
+- `realpath` - resolve path (uutils-coreutils)
+- `dirname` - directory name (uutils-coreutils)
+
+**Platform-specific considerations:**
+- `stat` command syntax differs: GNU uses `-c %a`, macOS BSD uses `-f %A`
+- Install uutils-coreutils to ensure consistent behavior
+
+</details>
 
 ## TODO
 
