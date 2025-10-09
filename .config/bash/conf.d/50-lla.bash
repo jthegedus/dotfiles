@@ -18,7 +18,8 @@ if command -v lla &> /dev/null; then
     alias lsize='lla --sizemap --include-dirs'
 
     # Set up jump feature if not already configured
-    if [[ ! -f ~/.config/lla/jump_history.txt ]]; then
+    # Check if the j function exists rather than checking for history file
+    if ! declare -F j >/dev/null 2>&1; then
         lla jump --setup --shell bash >/dev/null 2>&1
     fi
 fi
