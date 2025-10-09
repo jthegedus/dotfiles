@@ -102,15 +102,101 @@ Files in `conf.d/` load alphabetically. The numbering scheme ensures proper init
 - **50-98**: Custom tools (may override system tools - e.g., `bat` → `cat`)
 - **99**: Startup/cleanup tasks (auto-updates)
 
-**Key principle**: Files in the 30s enhance system tools with flags; files in the 50s may replace them entirely. Each custom tool gets its own `50-<toolname>` file.
+**Key principle**: Files in the 30s enhance system tools with flags; files in the 50s may replace them entirely (e.g., `bat` → `cat`, `lla` → `ll`, `ugrep` → `grep`). Each custom tool gets its own `50-<toolname>` file.
 
 ## Configuration Features
 
 - Auto-updating dotfiles: Automatically pulls repository updates once per day
 - SSH agent integration: Bitwarden SSH agent configuration for both macOS and Linux
 - Environment configuration: Shell identification and XDG Base Directory compliance for proper configuration directories
+- File listing with lla: Modern file explorer with multiple views (tree, git, timeline, size map)
+- Enhanced grep with ugrep: Ultra-fast grep with interactive TUI and fuzzy search
+- Syntax highlighting: bat replaces cat for enhanced file viewing
+- Smart directory navigation: zoxide learns frequently used directories
 - Git aliases: Convenient shortcuts for common git operations
 - Navigation aliases: Quick directory navigation shortcuts
+
+## Aliases
+
+This repository provides numerous aliases to enhance productivity. Aliases load conditionally based on available tools, with fallbacks for missing dependencies.
+
+### File Listing & Navigation
+
+**Primary listing (priority order):**
+- `ll` → `lla -T` when lla available (tree view)
+- `ll` → `ls -Alh` fallback when lla not installed
+
+**LLA-specific views** (when lla installed):
+- `search` → `lla --search` - interactive search
+- `rg` → `lla --search` - search shorthand
+- `fzf`, `fz`, `fuzz` → `lla --fuzzy -a` - fuzzy find with hidden files
+- `lg` → `lla -G` - Git-aware view with repository status
+- `lt` → `lla --timeline` - timeline view grouped by time periods
+- `lsize` → `lla --sizemap --include-dirs` - size map with directory sizes
+
+**Tree visualization** (when tree installed):
+- `tree` → `tree -a -C -I .git` - colored tree excluding .git
+
+**Smart navigation** (when zoxide installed):
+- `z <dir>` - jump to frequently used directories
+
+**Directory shortcuts:**
+- `..`, `...`, `....`, `.....`, `......` - navigate up 1-5 levels
+- `q` → `cd ~` - jump to home directory
+- `d` → `cd ~/dev` - jump to dev directory
+- `cl` → `clear` - clear terminal
+
+### File Operations
+
+**System utilities with enhanced defaults:**
+- `rm` → `rm -Iv` - interactive mode with verbose output
+- `mv` → `mv -i` - interactive mode (prompt before overwrite)
+- `df` → `df -h` - human-readable disk usage
+- `du` → `du -h -d 1` - human-readable directory sizes (1 level deep)
+
+**File viewing** (when bat installed):
+- `cat` → `bat` - syntax-highlighted file viewing
+
+### Search & Grep
+
+**Process search:**
+- `p <pattern>` → `ps aux | ugrep <pattern>` - search running processes
+
+**Ugrep aliases** (when ugrep installed):
+- `ug` → `ugrep` - basic ugrep
+- `ug+` → `ugrep+` - ugrep with additional features
+- `uq` → `ug -Q` - interactive TUI search
+- `uz` → `ug -z` - search compressed files/archives
+- `ux` → `ug -U --hexdump` - binary pattern search with hexdump
+- `ugit` → `ug -R --ignore-files` - Git-aware search (like git-grep)
+
+**Grep family replacements** (when ugrep installed):
+- `grep` → `ug -G` - basic regular expressions (BRE)
+- `egrep` → `ug -E` - extended regular expressions (ERE)
+- `fgrep` → `ug -F` - fixed string search
+- `zgrep` → `ug -zG` - search compressed files (BRE)
+- `zegrep` → `ug -zE` - search compressed files (ERE)
+- `zfgrep` → `ug -zF` - search compressed files (fixed strings)
+
+**Utility commands** (when ugrep installed):
+- `xdump` → `ugrep -X ""` - hexdump files
+- `zmore` → `ugrep+ -z -I -+ --pager ""` - view compressed/archived files
+
+### Git Shortcuts
+
+- `gl` → `git log --all --decorate --oneline --graph` - pretty log graph
+- `gs` → `git status --short` - compact status
+- `ga` → `git add` - stage files
+- `gc` → `git commit --message` - commit with message
+- `gp` → `git push` - push to remote
+- `gpl` → `git pull` - pull from remote
+
+### Notes
+
+- Aliases in the 50s (e.g., `lla`, `bat`, `ugrep`) override base aliases when available
+- Without optional tools, fallback aliases provide basic functionality
+- All aliases work in both Fish and Bash shells
+- LLA's jump directory feature auto-configures on first shell load when lla is installed
 
 ## Git Setup
 
@@ -178,11 +264,114 @@ git config --local core.sshCommand "ssh -i ~/.ssh/github_username.pub -o Identit
 The tools listed here are required to execute these scripts and are not part of the Shell they're intended to execute in.
 EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish, but required to run the `./install.sh` script.
 
-<details>
-<summary>System Tools Required by Shell Scripts (click to expand)</summary>
+### Tool Categories by Installation Method
 
-<!-- TODO: populate this list -->
-* (in progress)
+This section categorizes all tools referenced in the shell configurations and installation scripts by how they should be installed for cross-platform compatibility.
+
+<details>
+<summary>uutils-coreutils (Cross-Platform via Homebrew) (click to expand)</summary>
+
+These are core Unix utilities reimplemented in Rust. Install via Homebrew to ensure consistent behavior across macOS and Linux:
+
+```bash
+brew install uutils-coreutils
+```
+
+**Tools from uutils-coreutils used in this repository:**
+- `ls` - list directory contents
+- `rm` - remove files/directories
+- `mv` - move/rename files
+- `cp` - copy files
+- `df` - report file system disk space usage
+- `du` - estimate file space usage
+- `stat` - display file/filesystem status
+- `ln` - create links between files
+- `chmod` - change file mode bits
+- `mkdir` - create directories
+- `find` - search for files in directory hierarchy
+- `cat` - concatenate files and print (optionally replaced by `bat`)
+
+**Complete list of uutils-coreutils tools:**
+arch, b2sum, base32, base64, basename, basenc, cat, chcon, chgrp, chmod, chown, chroot, cksum, comm, cp, csplit, cut, date, dd, df, dir, dircolors, dirname, du, echo, env, expand, expr, factor, false, fmt, fold, groups, head, hostid, hostname, id, install, join, kill, link, ln, logname, ls, md5sum, mkdir, mkfifo, mknod, mktemp, mv, nice, nl, nohup, nproc, numfmt, od, paste, pathchk, pinky, pr, printenv, printf, ptx, pwd, readlink, realpath, rm, rmdir, runcon, seq, sha1sum, sha224sum, sha256sum, sha384sum, sha512sum, shred, shuf, sleep, sort, split, stat, stdbuf, stty, sum, sync, tac, tail, tee, test, timeout, touch, tr, true, truncate, tsort, tty, uname, unexpand, uniq, unlink, uptime, users, vdir, wc, who, whoami, yes
+
+**Note on compatibility:**
+- uutils-coreutils supports both GNU-style long flags and BSD/POSIX short flags
+- To maintain cross-platform compatibility, prefer POSIX short flags in shell aliases
+
+</details>
+
+<details>
+<summary>System Native (Platform Dependent) (click to expand)</summary>
+
+These tools are typically provided by the operating system but may have different flags/behavior between macOS (BSD) and Linux (GNU):
+
+**Version Control:**
+- `git` - distributed version control system (install latest via Homebrew)
+
+**Process Management:**
+- `ps` - process status (BSD vs GNU syntax differs)
+- `uname` - print system information
+
+**Note:** While these exist on most systems, consider installing via Homebrew for consistency.
+
+</details>
+
+<details>
+<summary>Third-Party Tools (Homebrew) (click to expand)</summary>
+
+Modern CLI tools that enhance or replace standard utilities:
+
+**Shell Enhancements:**
+- `bat` - cat clone with syntax highlighting (replaces `cat` when available)
+- `lla` - modern file explorer with multiple views, plugins, and Git integration
+- `zoxide` - smarter cd command that learns your habits
+- `ugrep` - ultra-fast grep with interactive TUI and fuzzy search
+- `tree` - directory tree visualization
+
+**Shells:**
+- `bash` - GNU Bash shell (install via Homebrew for latest version)
+- `fish` - friendly interactive shell
+- `zsh` - Z shell with advanced features
+
+**Development Tools:**
+- `delta` - syntax-highlighting pager for git/diff
+- `difftastic` - structural diff tool
+- `gh` - GitHub CLI
+- `jj` - Jujutsu version control
+- `lazygit` - terminal UI for git
+- `helix` - modern modal text editor
+- `vim` - classic text editor
+
+**System Utilities:**
+- `btop` - system resource monitor
+- `fd` - user-friendly find alternative
+- `fzf` - fuzzy finder for command-line
+- `tealdeer` - fast tldr client
+- `tmux` - terminal multiplexer
+- `wget` - network downloader
+- `xh` - friendly HTTP client
+
+See the [Recommended Tools](#recommended-tools) section for the complete list and installation commands.
+
+</details>
+
+<details>
+<summary>Installation Scripts Dependencies (click to expand)</summary>
+
+**Required for `install.sh`:**
+- `bash` - script interpreter
+- `find` - locate files (uutils-coreutils)
+- `ln` - create symbolic links (uutils-coreutils)
+- `mkdir` - create directories (uutils-coreutils)
+- `chmod` - change permissions (uutils-coreutils)
+- `cp` - copy files (uutils-coreutils)
+- `stat` - file statistics (uutils-coreutils or platform-specific)
+- `realpath` - resolve path (uutils-coreutils)
+- `dirname` - directory name (uutils-coreutils)
+
+**Platform-specific considerations:**
+- `stat` command syntax differs: GNU uses `-c %a`, macOS BSD uses `-f %A`
+- Install uutils-coreutils to ensure consistent behavior
 
 </details>
 
@@ -228,7 +417,7 @@ EG: `coreutils` tools like `ln` for symlinking are not part of Bash, ZSH or Fish
 * [dysk](https://github.com/Canop/dysk): A linux utility to get information on filesystems, like df but better.
 * [fd](https://github.com/sharkdp/fd): fd is a simple, fast, and user-friendly alternative to find, designed for intuitive filesystem searching with sensible defaults and parallelized directory traversal.
 * [fzf](https://github.com/junegunn/fzf): fzf is a general-purpose command-line fuzzy finder, an interactive filter program for any kind of list with a fuzzy matching algorithm for quick pattern typing.
-* [g (aka g-ls)](https://github.com/Equationzhao/g): powerful and cross-platform ls
+* [lla](https://github.com/chaqchase/lla): A modern, fast terminal file explorer with multiple views, plugins, and Git integration
 * [jqp](https://github.com/noahgorstein/jqp): A TUI playground for exploring jq.
 * [lf](https://github.com/gokcehan/lf): lf (as "list files") is a terminal file manager written in Go with a focus on performance.
 * [scooter](https://github.com/mjrusso/scoot): Scoot is a macOS utility that provides fast, keyboard-driven control over the mouse pointer, enabling cursor teleportation and actuation through element-based or grid-based navigation.
@@ -290,7 +479,7 @@ brew install \
   dysk \
   fd \
   fzf \
-  g-ls \
+  lla \
   jqp \
   lf \
   scooter \
