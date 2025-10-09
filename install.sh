@@ -20,10 +20,8 @@ ln -s -f -v "${REPO_ROOT}/.zshenv" "${HOME}/.zshenv"
 
 # copy SSH config.example to config if config doesn't exist
 mkdir -p "${HOME}/.ssh"
-# only chmod if permissions are not already 700
-if [[ "$(stat -c %a "${HOME}/.ssh" 2>/dev/null)" != "700" ]]; then
-	chmod 700 "${HOME}/.ssh"
-fi
+# Set proper SSH directory permissions
+chmod 700 "${HOME}/.ssh"
 if [[ -f "${REPO_ROOT}/.ssh/config.example" ]]; then
 	if [[ ! -e "${HOME}/.ssh/config" ]]; then
 		cp -v "${REPO_ROOT}/.ssh/config.example" "${HOME}/.ssh/config"
