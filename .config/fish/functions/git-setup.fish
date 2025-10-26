@@ -40,5 +40,12 @@ function git-setup --description "Initialize git repository with user configurat
         echo "SSH identity configured: ~/.ssh/$ssh_identity.pub"
     end
 
-    test -n "$remote_url"; and git remote add origin "$remote_url"
+    # Configure remote URL if provided
+    if test -n "$remote_url"
+        if git remote get-url origin >/dev/null 2>&1
+            git remote set-url origin "$remote_url"
+        else
+            git remote add origin "$remote_url"
+        end
+    end
 end

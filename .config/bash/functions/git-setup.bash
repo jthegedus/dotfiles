@@ -43,7 +43,12 @@ function git-setup() {
         echo "SSH identity configured: ~/.ssh/$ssh_identity.pub"
     fi
 
+    # Configure remote URL if provided
     if [[ -n "$remote_url" ]]; then
-        git remote add origin "$remote_url"
+        if git remote get-url origin >/dev/null 2>&1; then
+            git remote set-url origin "$remote_url"
+        else
+            git remote add origin "$remote_url"
+        fi
     fi
 }
