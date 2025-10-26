@@ -343,7 +343,7 @@ git config --local core.sshCommand "ssh -i ~/.ssh/github_username.pub -o Identit
 brew install \
   bash \
   fish \
-  zsh \
+  zsh
 
 ### completions
 brew install \
