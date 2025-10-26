@@ -542,7 +542,6 @@ Things to improve:
   * wrapper scripts
 * document how SSH setup works for Git Identity & Signing management
 * mirror the `.config/fish/functions/prettify.fish` script for Bash & ZSH (probably should just rely on using dockerfiles of `sh`, `shfmt` & `shellcheck`)
-* mirror the Fish prompt configuration in Bash
 * ZSH support
   * point ZSH to utilise all the Bash configuration & scripts (eg: `.config/bash/**`). Is this as simple as changing ZDOTDIR to `XDG_CONFIG_HOME/bash`?
   * mirror the Fish prompt configuration in ZSH (if I cannot use the Bash configuration for the prompt)
