@@ -1,6 +1,6 @@
 # LLA - Modern file explorer with multiple views
 if command --query lla
-    # Override ll alias to use lla tree view when available
+    # Override ll alias to use lla table view when available
     alias ll 'lla -T'
 
     # Search aliases
