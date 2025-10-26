@@ -37,13 +37,21 @@ By explicitly mirroring configuration between Shells we can **TRY** to better co
 ## Install
 
 Traditional setup with clone & symlink:
-* Clone to your project directory:
+* Clone to your project directory (use `https` since we have yet to configure SSH):
   ```
   git clone https://github.com/jthegedus/dotfiles.git ~/dev/dotfiles
   ```
 * Symlink everything:
   ```
   bash ~/dev/dotfiles/install.sh
+  ```
+* Set shell to Fish:
+  ```
+  TODO
+  ```
+* Set per repository settings identity settings (execute `.config/fish/functions/git-setup.fish`):
+  ```
+  git-setup
   ```
 
 <details>
