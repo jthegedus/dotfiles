@@ -39,11 +39,11 @@ By explicitly mirroring configuration between Shells we can **TRY** to better co
 Traditional setup with clone & symlink:
 * Clone to your project directory:
   ```
-  git clone git@github.com:jthegedus/dotfiles.git ~/dev/dotfiles
+  git clone https://github.com/jthegedus/dotfiles.git ~/dev/dotfiles
   ```
 * Symlink everything:
   ```
-  bash ./install.sh
+  bash ~/dev/dotfiles/install.sh
   ```
 
 <details>
