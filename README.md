@@ -370,7 +370,7 @@ brew install \
   podman-compose \
   lazydocker \
   kubectx \
-  fubectl \
+  kubectl-ai \
   derailed/k9s/k9s \
   stern
 
@@ -394,6 +394,15 @@ brew install \
   xh \
   xz \
   zoxide
+
+### ai tools
+brew install \
+    --cask claude-code
+brew install \
+    charmbracelet/tap/crush \
+    sst/tap/opencode \
+    gemini-cli \
+    qwen-code
 ```
 
 </details>
