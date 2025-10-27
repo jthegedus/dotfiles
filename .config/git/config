@@ -18,3 +18,8 @@
 	gpgsign = true
 [rerere]
 	enabled = true
+
+# Conditionally include container-use config for GitHub repositories
+# Matches both SSH (git@github.com:*/*) and HTTPS (https://github.com/*) remotes
+[includeIf "hasconfig:remote.*.url:**github.com**"]
+	path = ~/.config/git/container-use.config
