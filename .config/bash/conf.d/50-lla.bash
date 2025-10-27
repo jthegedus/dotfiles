@@ -17,9 +17,6 @@ if command -v lla &> /dev/null; then
     alias lt='lla --timeline'
     alias lsize='lla --sizemap --include-dirs'
 
-    # Set up jump feature if not already configured
-    # Check if the j function exists rather than checking for history file
-    if ! declare -F j >/dev/null 2>&1; then
-        lla jump --setup --shell bash >/dev/null 2>&1
-    fi
+    # Note: The 'j' jump function is manually managed in .config/bash/functions/j.bash
+    # We do not use 'lla jump --setup' to avoid automatic injection into .bashrc
 fi

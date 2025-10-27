@@ -17,9 +17,6 @@ if command --query lla
     alias lt 'lla --timeline'
     alias lsize 'lla --sizemap --include-dirs'
 
-    # Set up jump feature if not already configured
-    # Check if the j function exists rather than checking for history file
-    if not functions -q j
-        lla jump --setup --shell fish >/dev/null 2>&1
-    end
+    # Note: The 'j' jump function is manually managed in .config/fish/functions/j.fish
+    # We do not use 'lla jump --setup' to avoid automatic injection into config.fish
 end
