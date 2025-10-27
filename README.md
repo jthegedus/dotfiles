@@ -353,7 +353,7 @@ brew install difftastic mergiraf
 * [podman-compose](https://github.com/containers/podman-compose): Podman Compose is an implementation of the Compose Specification that uses Podman as its backend, focusing on rootless and daemon-less operation.
 * [lazydocker](https://github.com/jesseduffield/lazydocker): A simple terminal UI for Docker and Docker Compose, written in Go with the gocui library.
 * [kubectx](https://github.com/ahmetb/kubectx): Faster way to switch between clusters and namespaces in kubectl.
-* [fubectl](https://github.com/kubermatic/fubectl): Reduces repetitive interactions with kubectl.
+* [kubectl-ai](https://github.com/GoogleCloudPlatform/kubectl-ai): AI-powered Kubernetes assistant that translates natural language queries into kubectl commands.
 * [k9s](https://k9scli.io/) ([GitHub](https://github.com/derailed/k9s)): K9s is a terminal UI to manage Kubernetes clusters, making it easier to navigate, observe, and manage applications with continuous resource watching and command interaction.
 * [stern](https://github.com/stern/stern): Multi pod and container log tailing for Kubernetes.
 
