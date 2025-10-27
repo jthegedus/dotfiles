@@ -35,3 +35,9 @@ export XDG_CONFIG_DIRS="${XDG_CONFIG_DIRS:-/etc/xdg}"
 # Set history to use XDG location
 export HISTFILE="$XDG_CACHE_HOME/bash_history"
 export LESSHISTFILE="$XDG_CACHE_HOME/less_history"
+
+# Auto-update toggles (shell startup behavior)
+# Set to 0 to disable individual startup checks/updates
+export ENABLE_SSH_CHECK="${ENABLE_SSH_CHECK:-1}"
+export ENABLE_DOTFILES_UPDATE="${ENABLE_DOTFILES_UPDATE:-1}"
+export ENABLE_BREW_UPDATE="${ENABLE_BREW_UPDATE:-1}"

@@ -32,3 +32,9 @@ set --query XDG_CONFIG_DIRS; or set --global --export XDG_CONFIG_DIRS /etc/xdg
 
 # Set history files to use XDG locations
 set --global --export LESSHISTFILE "$XDG_CACHE_HOME/less_history"
+
+# Auto-update toggles (shell startup behavior)
+# Set to 0 to disable individual startup checks/updates
+set --query ENABLE_SSH_CHECK; or set --global --export ENABLE_SSH_CHECK 1
+set --query ENABLE_DOTFILES_UPDATE; or set --global --export ENABLE_DOTFILES_UPDATE 1
+set --query ENABLE_BREW_UPDATE; or set --global --export ENABLE_BREW_UPDATE 1

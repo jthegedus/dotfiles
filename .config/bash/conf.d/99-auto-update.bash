@@ -1,6 +1,6 @@
 # auto-update dotfiles repository and homebrew (once per day)
 if [[ $- == *i* ]]; then
-    ssh-check
-    update_dotfiles_repository
-    update_brew
+    [[ "$ENABLE_SSH_CHECK" == "1" ]] && ssh-check
+    [[ "$ENABLE_DOTFILES_UPDATE" == "1" ]] && update_dotfiles_repository
+    [[ "$ENABLE_BREW_UPDATE" == "1" ]] && update_brew
 fi
