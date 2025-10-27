@@ -478,6 +478,7 @@ brew install \
     --cask claude-code
 brew install \
     charmbracelet/tap/crush \
+    dagger/tap/container-use \  # macOS only - see https://github.com/dagger/container-use#install for other platforms
     sst/tap/opencode \
     gemini-cli \
     qwen-code
