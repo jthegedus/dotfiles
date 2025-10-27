@@ -1,6 +1,8 @@
 [init]
 	defaultBranch = trunk
 #	templateDir = ${XDG_CONFIG_HOME}/git/templates
+[core]
+	attributesFile = ~/.config/git/attributes
 [push]
 	autoSetupRemote = true
 [pull]
@@ -18,3 +20,28 @@
 	gpgsign = true
 [rerere]
 	enabled = true
+
+# File System Check - Validate objects during transfer/fetch/receive to prevent malformed/corrupt objects
+[transfer]
+	fsckObjects = true
+[fetch]
+	fsckObjects = true
+[receive]
+	fsckObjects = true
+[merge]
+	conflictStyle = zdiff3
+
+# Mergiraf - syntax-aware merge driver (automatically resolves conflicts using AST-based merging)
+[merge "mergiraf"]
+	name = mergiraf
+	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
+
+# Difftastic - structural diff that understands syntax
+[diff]
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+	difftool = true

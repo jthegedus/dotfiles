@@ -1,0 +1,75 @@
+# Global Git Attributes
+# See: https://git-scm.com/docs/gitattributes
+
+# Auto-detect text files and normalize line endings to LF on checkin
+* text=auto
+
+# Explicitly declare text files you want to always be normalized and converted to native line endings on checkout
+*.c text
+*.h text
+*.cpp text
+*.hpp text
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.py text
+*.rb text
+*.go text
+*.rs text
+*.java text
+*.sh text eol=lf
+*.bash text eol=lf
+*.fish text eol=lf
+*.md text
+*.txt text
+*.json text
+*.xml text
+*.html text
+*.css text
+*.scss text
+*.yaml text
+*.yml text
+*.toml text
+
+# Declare files that should always have CRLF line endings on checkout
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Denote binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.zip binary
+*.gz binary
+*.tar binary
+*.db binary
+*.sqlite binary
+
+# Enable Mergiraf for all supported languages
+# Mergiraf will use syntax-aware merging for these file types
+*.c merge=mergiraf
+*.cpp merge=mergiraf
+*.cs merge=mergiraf
+*.go merge=mergiraf
+*.java merge=mergiraf
+*.js merge=mergiraf
+*.jsx merge=mergiraf
+*.json merge=mergiraf
+*.py merge=mergiraf
+*.rs merge=mergiraf
+*.ts merge=mergiraf
+*.tsx merge=mergiraf
+*.yaml merge=mergiraf
+*.yml merge=mergiraf

@@ -286,6 +286,41 @@ git config --local core.sshCommand "ssh -i ~/.ssh/github_username.pub -o Identit
 - SSH Agent manages key security and access
 - Identity separation per repository/project
 
+<details>
+<summary>Syntax-Aware Diff and Merge Tools (click to expand)</summary>
+
+This repository configures modern, syntax-aware tools for viewing diffs and resolving merge conflicts:
+
+**Difftastic** - Structural diff that understands syntax:
+```bash
+# View syntax-aware diff
+git difftool
+
+# Works automatically with git log --patch, git show, etc.
+# Falls back to line-based diff for unsupported languages
+```
+
+**Mergiraf** - Syntax-aware merge driver:
+- Automatically resolves conflicts using Abstract Syntax Tree (AST) analysis
+- Works with `git merge`, `git rebase`, `git cherry-pick`, and `git revert`
+- Falls back to standard 3-way merge with `zdiff3` conflict markers when needed
+- Enabled for: C, C++, C#, Go, Java, JavaScript, JSX, JSON, Python, Rust, TypeScript, TSX, YAML
+
+**Conflict Resolution:**
+When conflicts occur, Mergiraf attempts automatic resolution first. If unsuccessful, Git presents conflicts using the `zdiff3` style, which shows:
+- Your changes (HEAD)
+- Common ancestor (base)
+- Incoming changes (theirs)
+
+This three-way view makes it easier to understand what changed on both sides and how to resolve conflicts correctly.
+
+**Installation:**
+```bash
+brew install difftastic mergiraf
+```
+
+</details>
+
 ## Recommended Tools
 
 <details>
@@ -306,6 +341,7 @@ git config --local core.sshCommand "ssh -i ~/.ssh/github_username.pub -o Identit
 * [git](https://github.com/git/git): Git is a fast, scalable, distributed revision control system with a rich command set for high-level operations and internal access.
 * [jj](https://github.com/jj-vcs/jj): Jujutsu is a version control system designed for ease of use, abstracting its UI and algorithms from storage systems, and is compatible with Git repositories.
 * [lazygit](https://github.com/jesseduffield/lazygit): A simple terminal UI for git commands, providing an intuitive interface for common git operations.
+* [mergiraf](https://mergiraf.org/) ([Codeberg](https://codeberg.org/mergiraf/mergiraf)): A syntax-aware git merge driver that resolves conflicts using AST analysis for multiple programming languages.
 
 **Terminal editors:**
 * [helix](https://helix-editor.com/) ([GitHub](https://github.com/helix-editor/helix)): Helix is a Kakoune/Neovim inspired modal text editor written in Rust, featuring multiple selections and built-in language server support.
@@ -364,7 +400,8 @@ brew install \
   gh \
   git \
   jj \
-  lazygit
+  lazygit \
+  mergiraf
 
 ### terminal editors
 brew install \
