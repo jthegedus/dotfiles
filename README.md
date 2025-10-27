@@ -400,6 +400,20 @@ For discovering new terminal tools, check out [Terminal Trove](https://terminalt
 </details>
 
 <details>
+<summary>Fonts (click to expand)</summary>
+
+**Monospace fonts for terminal and code:**
+* [JetBrains Mono](https://www.jetbrains.com/lp/mono/): A typeface for developers with increased height for a better reading experience.
+* [Commit Mono](https://commitmono.com/): An anonymous and neutral programming typeface.
+
+**Installation:**
+```bash
+brew install --cask font-jetbrains-mono font-commit-mono
+```
+
+</details>
+
+<details>
 <summary>Homebrew Quick Install (click to expand)</summary>
 
 ```bash
@@ -482,6 +496,11 @@ brew install \
     sst/tap/opencode \
     gemini-cli \
     qwen-code
+
+### fonts
+brew install --cask \
+  font-jetbrains-mono \
+  font-commit-mono
 ```
 
 </details>
