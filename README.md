@@ -358,23 +358,40 @@ For discovering new terminal tools, check out [Terminal Trove](https://terminalt
 * [kubectl-ai](https://github.com/GoogleCloudPlatform/kubectl-ai): AI-powered Kubernetes assistant that translates natural language queries into kubectl commands.
 * [k9s](https://k9scli.io/) ([GitHub](https://github.com/derailed/k9s)): K9s is a terminal UI to manage Kubernetes clusters, making it easier to navigate, observe, and manage applications with continuous resource watching and command interaction.
 * [stern](https://github.com/stern/stern): Multi pod and container log tailing for Kubernetes.
+* [pvetui (proxmox-tui)](https://github.com/devnullvoid/pvetui): A terminal user interface for managing Proxmox Virtual Environment (PVE) clusters with an intuitive ncurses-based interface.
+* [tailscale](https://tailscale.com/) ([GitHub](https://github.com/tailscale/tailscale)): Mesh VPN that creates secure private networks between devices using WireGuard, with automatic key rotation and NAT traversal.
+* [uncloud](https://github.com/psviderski/uncloud): Lightweight container orchestration tool for self-hosted infrastructure, providing simple deployment and management of containerized applications.
 
 **Terminal utilities:**
+* [astroterm](https://github.com/da-luce/astroterm): Terminal-based planetarium and astronomy tool for viewing celestial objects, constellations, and sky positions from the command line.
 * [bat](https://github.com/sharkdp/bat): bat is a cat(1) clone with syntax highlighting and Git integration, enhancing the command-line experience for viewing code and text files.
 * [btop](https://github.com/aristocratos/btop): Btop is a modern, command-line system resource monitor written in C++20, offering features like CPU, memory, disk, and network usage monitoring with GPU support.
 * [caligula](https://github.com/ifd3f/caligula): A user-friendly, lightweight TUI for imaging disks.
 * [dysk](https://dystroy.org/dysk/) ([GitHub](https://github.com/Canop/dysk)): A linux utility to get information on filesystems, like df but better.
+* [dua-cli](https://github.com/Byron/dua-cli): Interactive disk usage analyzer with a TUI interface for exploring filesystem space consumption and cleaning up large files.
+* [dust](https://github.com/bootandy/dust): More intuitive version of du written in Rust, displaying disk usage as a visual tree with color-coded output.
 * [fd](https://github.com/sharkdp/fd): fd is a simple, fast, and user-friendly alternative to find, designed for intuitive filesystem searching with sensible defaults and parallelized directory traversal.
+* [fselect](https://github.com/jhspetersson/fselect): Find files using SQL-like queries with support for complex filters, aggregations, and multiple output formats.
 * [fzf](https://github.com/junegunn/fzf): fzf is a general-purpose command-line fuzzy finder, an interactive filter program for any kind of list with a fuzzy matching algorithm for quick pattern typing.
+* [gdu](https://github.com/dundee/gdu): Fast disk usage analyzer written in Go with console interface, featuring parallel scanning and export capabilities.
 * [lla](https://github.com/chaqchase/lla): A modern, fast terminal file explorer with multiple views, plugins, and Git integration
 * [jqp](https://github.com/noahgorstein/jqp): A TUI playground for exploring jq.
+* [kondo](https://github.com/tbillington/kondo): CLI and GUI tool for cleaning project build artifacts and dependencies like node_modules, target directories, and caches to reclaim disk space.
 * [lf](https://github.com/gokcehan/lf): lf (as "list files") is a terminal file manager written in Go with a focus on performance.
+* [moar](https://github.com/walles/moar): Paging program with features like search highlighting, mouse support, and better handling of ANSI sequences than less.
+* [mprocs](https://github.com/pvolok/mprocs): Terminal process manager for running and managing multiple commands in parallel with a TUI for monitoring output and controlling processes.
+* [pastel](https://github.com/sharkdp/pastel): Command-line tool for generating, analyzing, and manipulating colors with support for various color spaces and palette generation.
+* [pcp (Performance Co-Pilot)](https://github.com/performancecopilot/pcp): System performance analysis toolkit for monitoring and managing system-level performance with extensive metrics collection.
+* [presenterm](https://github.com/mfontanini/presenterm): Terminal-based slideshow presentation tool that renders Markdown files with syntax highlighting, images, and code execution.
+* [rmpc](https://mierak.github.io/rmpc/): Feature-rich TUI client for MPD (Music Player Daemon) with album art, queue management, and audio visualizations.
 * [scooter](https://github.com/thomasschafer/scooter): Interactive find and replace in the terminal
 * [tealdeer (`tldr`)](https://dbrgn.github.io/tealdeer/) ([GitHub](https://github.com/dbrgn/tealdeer)): A very fast implementation of tldr in Rust.
+* [tokei](https://github.com/XAMPPRocky/tokei): Fast code statistics counter that displays lines of code, comments, and blanks across 150+ programming languages.
 * [tmux](https://tmux.github.io/) ([GitHub](https://github.com/tmux/tmux)): tmux is a terminal multiplexer that allows multiple terminal sessions to be accessed and controlled from a single screen, enabling session persistence and detachment.
 * [uutils-coreutils](https://uutils.github.io/coreutils/) ([GitHub](https://github.com/uutils/coreutils)): Cross-platform Rust rewrite of the GNU coreutils.
 * [ugrep](https://ugrep.com/) ([GitHub](https://github.com/Genivia/ugrep)): ugrep: ultra fast grep with interactive TUI, fuzzy search, boolean queries, hexdumps and more.
 * [wget](https://www.gnu.org/software/wget/) ([GitHub](https://github.com/mirror/wget)): GNU Wget is a free utility for non-interactive download of files from the Web.
+* [webcamize](https://github.com/cowtoolz/webcamize): Linux tool for using cameras (DSLR, mirrorless, etc.) as webcams with V4L2 loopback support.
 * [xh](https://github.com/ducaale/xh): xh is a user-friendly and performant command-line tool for making HTTP requests, inspired by HTTPie and focused on speed.
 * [xz](https://tukaani.org/xz/) ([GitHub](https://github.com/tukaani-project/xz)): XZ Utils is free general-purpose data compression software with a high compression ratio.
 * [zoxide (`z`)](https://github.com/ajeetdsouza/zoxide): zoxide is a smarter cd command that remembers your frequently used directories, allowing you to jump to them with fewer keystrokes across all major shells.
@@ -419,21 +436,33 @@ brew install \
   kubectx \
   kubectl-ai \
   derailed/k9s/k9s \
-  stern
+  stern \
+  tailscale \
+  psviderski/tap/uncloud
 
 ### terminal utilities
 brew install \
   bat \
   btop \
   philocalyst/tap/caligula \
+  dua-cli \
+  dust \
   dysk \
   fd \
+  fselect \
   fzf \
+  gdu \
   lla \
   jqp \
+  kondo \
   lf \
+  moar \
+  mprocs \
+  pastel \
+  presenterm \
   scooter \
   tealdeer \
+  tokei \
   tmux \
   uutils-coreutils \
   ugrep \
