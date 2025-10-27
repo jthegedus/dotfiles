@@ -24,13 +24,13 @@ By explicitly mirroring configuration between Shells we can **TRY** to better co
 
 ## Configuration Features
 
-- Auto-updating dotfiles: Automatically pulls repository updates once per day
-- SSH agent integration: Bitwarden SSH agent configuration for both macOS and Linux
-- Environment configuration: Shell identification and XDG Base Directory compliance for proper configuration directories
-- File listing with lla: Modern file explorer with multiple views (tree, git, timeline, size map)
+- File listing with lla: Modern file explorer with multiple views (tree, git, timeline, size map, fuzzy search)
 - Enhanced grep with ugrep: Ultra-fast grep with interactive TUI and fuzzy search
 - Syntax highlighting: bat replaces cat for enhanced file viewing
 - Smart directory navigation: zoxide learns frequently used directories
+- Auto-updating dotfiles: Automatically pulls repository updates once per day
+- SSH agent integration: Bitwarden SSH agent configuration for both macOS and Linux
+- Environment configuration: Shell identification and XDG Base Directory compliance for proper configuration directories
 - Git aliases: Convenient shortcuts for common git operations
 - Navigation aliases: Quick directory navigation shortcuts
 
@@ -384,6 +384,7 @@ For discovering new terminal tools, check out [Terminal Trove](https://terminalt
 * [pcp (Performance Co-Pilot)](https://github.com/performancecopilot/pcp): System performance analysis toolkit for monitoring and managing system-level performance with extensive metrics collection.
 * [presenterm](https://github.com/mfontanini/presenterm): Terminal-based slideshow presentation tool that renders Markdown files with syntax highlighting, images, and code execution.
 * [rmpc](https://mierak.github.io/rmpc/): Feature-rich TUI client for MPD (Music Player Daemon) with album art, queue management, and audio visualizations.
+* [ripgrep (`rg`)](https://github.com/BurntSushi/ripgrep): A line-oriented search tool that recursively searches the current directory for a regex pattern, combining the usability of ag with the raw speed of grep.
 * [scooter](https://github.com/thomasschafer/scooter): Interactive find and replace in the terminal
 * [tealdeer (`tldr`)](https://dbrgn.github.io/tealdeer/) ([GitHub](https://github.com/dbrgn/tealdeer)): A very fast implementation of tldr in Rust.
 * [tokei](https://github.com/XAMPPRocky/tokei): Fast code statistics counter that displays lines of code, comments, and blanks across 150+ programming languages.
@@ -460,6 +461,7 @@ brew install \
   mprocs \
   pastel \
   presenterm \
+  ripgrep \
   scooter \
   tealdeer \
   tokei \
