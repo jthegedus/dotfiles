@@ -45,14 +45,53 @@ Traditional setup with clone & symlink:
   ```
   bash ~/dev/dotfiles/install.sh
   ```
-* Set shell to Fish:
-  ```
-  TODO
-  ```
+* Set shell to Fish (see instructions below)
 * Set per repository settings identity settings (execute `.config/fish/functions/git-setup.fish`):
   ```
   git-setup
   ```
+
+<details>
+<summary>Change Shell to Fish (click to expand)</summary>
+
+**Standard installation:**
+
+1. Find your Homebrew-installed Fish path:
+   ```bash
+   which fish
+   ```
+
+2. Verify Fish is in `/etc/shells`:
+   ```bash
+   grep -q $(which fish) /etc/shells && echo "Fish is registered" || echo "Fish needs to be added"
+   ```
+
+3. If Fish is not in `/etc/shells`, add it:
+   ```bash
+   echo $(which fish) | sudo tee -a /etc/shells
+   ```
+
+4. Change your default shell:
+   ```bash
+   chsh -s $(which fish)
+   ```
+
+5. Restart your terminal for changes to take effect
+
+**Alternative for restricted systems:**
+
+If you cannot modify `/etc/shells` (corporate/managed systems), you can use Fish as your interactive shell without changing the login shell by adding to `~/.bash_profile` or `~/.bashrc`:
+
+```bash
+# Launch Fish if interactive and not already in Fish
+if [[ -t 0 && $- = *i* && -z "$FISH_VERSION" ]]; then
+    exec $(which fish)
+fi
+```
+
+This starts Fish automatically when you open a terminal while keeping Bash as your official login shell.
+
+</details>
 
 <details>
 <summary>Use in DevContainers (click to expand)</summary>
