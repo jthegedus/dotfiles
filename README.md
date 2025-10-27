@@ -397,11 +397,11 @@ brew install \
 brew install \
   delta \
   difftastic \
-  gh \
+  mergiraf \
   git \
-  jj \
+  gh \
   lazygit \
-  mergiraf
+  jj
 
 ### terminal editors
 brew install \
