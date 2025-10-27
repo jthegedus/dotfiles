@@ -323,6 +323,8 @@ brew install difftastic mergiraf
 
 ## Recommended Tools
 
+For discovering new terminal tools, check out [Terminal Trove](https://terminaltrove.com) - a curated directory of CLI, TUI, and terminal-based tools with weekly showcases and categorized browsing.
+
 <details>
 <summary>Tools I recommend checking out (click to expand)</summary>
 
