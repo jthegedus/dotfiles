@@ -4,6 +4,7 @@ theme = "varua"
 cursorline = true
 mouse = true
 color-modes = true
+true-color = true
 
 [editor.file-picker]
 hidden = false
