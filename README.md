@@ -409,6 +409,7 @@ For discovering new terminal tools, check out [Terminal Trove](https://terminalt
 * [dysk](https://dystroy.org/dysk/) ([GitHub](https://github.com/Canop/dysk)): A linux utility to get information on filesystems, like df but better.
 * [dua-cli](https://github.com/Byron/dua-cli): Interactive disk usage analyzer with a TUI interface for exploring filesystem space consumption and cleaning up large files.
 * [dust](https://github.com/bootandy/dust): More intuitive version of du written in Rust, displaying disk usage as a visual tree with color-coded output.
+* [eg-examples (`eg`)](https://github.com/srsudar/eg): `eg` provides examples of common uses of command line tools.
 * [fd](https://github.com/sharkdp/fd): fd is a simple, fast, and user-friendly alternative to find, designed for intuitive filesystem searching with sensible defaults and parallelized directory traversal.
 * [fselect](https://github.com/jhspetersson/fselect): Find files using SQL-like queries with support for complex filters, aggregations, and multiple output formats.
 * [fzf](https://github.com/junegunn/fzf): fzf is a general-purpose command-line fuzzy finder, an interactive filter program for any kind of list with a fuzzy matching algorithm for quick pattern typing.
@@ -502,6 +503,7 @@ brew install \
   dua-cli \
   dust \
   dysk \
+  eg-examples \
   fd \
   fselect \
   fzf \
