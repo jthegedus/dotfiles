@@ -1,4 +1,4 @@
-theme = "varua"
+theme = "gruvbox_dark_hard"
 
 [editor]
 cursorline = true
