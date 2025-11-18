@@ -41,6 +41,12 @@ find "${REPO_ROOT}/.config" -maxdepth 1 -type d -not -path "${REPO_ROOT}/.config
 			continue
 		fi
 
+		# If target exists as a directory (not a symlink), remove it
+		# This prevents ln from creating the symlink inside the directory
+		if [[ -d "$target_item" ]] && [[ ! -L "$target_item" ]]; then
+			rm -rf "$target_item"
+		fi
+
 		# Create the symlink (force overwrite if it exists)
 		ln -s -f -v "$source_item" "$target_item"
 	done
