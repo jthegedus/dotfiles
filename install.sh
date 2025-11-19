@@ -60,6 +60,8 @@ ln -s -f -v "${REPO_ROOT}/.bash_profile" "${HOME}/.bash_profile"
 ln -s -f -v "${REPO_ROOT}/.bashrc" "${HOME}/.bashrc"
 # symlink root ZSH configuration to $HOME
 ln -s -f -v "${REPO_ROOT}/.zshenv" "${HOME}/.zshenv"
+# symlink ugrep configuration (ugrep doesn't support XDG directories)
+ln -s -f -v "${REPO_ROOT}/.config/ugrep/config" "${HOME}/.ugrep"
 echo
 
 # copy SSH config.example to config if config doesn't exist
@@ -81,7 +83,7 @@ echo "Cleaning up dead symlinks..."
 remove_dead_symlinks "${HOME}/.config"
 remove_dead_symlinks "${HOME}/.ssh"
 # Check root files
-for file in "${HOME}/.bash_logout" "${HOME}/.bash_profile" "${HOME}/.bashrc" "${HOME}/.zshenv"; do
+for file in "${HOME}/.bash_logout" "${HOME}/.bash_profile" "${HOME}/.bashrc" "${HOME}/.zshenv" "${HOME}/.ugrep"; do
 	if [[ -L "$file" ]] && [[ ! -e "$file" ]]; then
 		echo "Removing dead symlink: $file"
 		rm -f "$file"

@@ -1,0 +1,8 @@
+# ugrep configuration file
+# See: https://ugrep.com/
+
+# Ignore binary files by default
+ignore-binary
+
+# Obey .gitignore files in recursive searches
+ignore-files
