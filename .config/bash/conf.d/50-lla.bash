@@ -16,6 +16,7 @@ if command -v lla &> /dev/null; then
     alias lg='lla -G'
     alias lt='lla --timeline'
     alias lsize='lla --sizemap --include-dirs'
+    alias tree='lla --tree'
 
     # Note: The 'j' jump function is manually managed in .config/bash/functions/j.bash
     # We do not use 'lla jump --setup' to avoid automatic injection into .bashrc
