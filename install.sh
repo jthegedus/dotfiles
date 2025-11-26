@@ -67,6 +67,7 @@ echo
 # copy SSH config.example to config if config doesn't exist
 echo "Setting up SSH configuration..."
 mkdir -p "${HOME}/.ssh"
+mkdir -p "${HOME}/.ssh/control"
 # Set proper SSH directory permissions
 chmod 700 "${HOME}/.ssh"
 if [[ -f "${REPO_ROOT}/.ssh/config.example" ]]; then
