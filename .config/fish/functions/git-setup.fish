@@ -1,9 +1,9 @@
 function git-setup --description "Initialize git repository with user configuration"
     read --prompt-str "Git user.name (GitHub/Lab username): " --local name
-    read --prompt-str "Git user.email (GitHub/Lab username): " --local email
-    read --prompt-str "Git signing key (ssh-ed25519 <HASH>): " --local signingkey
-    read --prompt-str "Authentication SSH Key identity name (e.g., auth_github_username): " --local ssh_identity
-    read --prompt-str "Authentication SSH Key public key (ssh-ed25519 <HASH> [comment]): " --local ssh_pubkey
+    read --prompt-str "Git user.email (GitHub/Lab email): " --local email
+    read --prompt-str "Signing SSH Key - public key value (ssh-ed25519 <HASH>): " --local signingkey
+    read --prompt-str "Authentication SSH Key - identity name (e.g: auth_github_username): " --local ssh_identity
+    read --prompt-str "Authentication SSH Key - public key value (ssh-ed25519 <HASH> [comment]): " --local ssh_pubkey
     read --prompt-str "Remote URL (git@github.com:OWNER/REPOSITORY.git): " --local remote_url
 
     test -n "$name" -a -n "$email"
@@ -35,7 +35,7 @@ function git-setup --description "Initialize git repository with user configurat
         chmod 600 ~/.ssh/$ssh_identity.pub
 
         # Configure git to use this SSH key
-        git config --local core.sshCommand "ssh -i ~/.ssh/$ssh_identity.pub -o IdentitiesOnly=yes"
+        git config --local core.sshCommand "ssh -v -i ~/.ssh/$ssh_identity.pub -o IdentitiesOnly=yes"
 
         echo "SSH identity configured: ~/.ssh/$ssh_identity.pub"
     end
