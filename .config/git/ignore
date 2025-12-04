@@ -17,6 +17,5 @@ CLAUDE.md
 .env.mcp.secrets
 .claude/generated/cache/**
 
-
 # Operating Systems
 .DS_Store

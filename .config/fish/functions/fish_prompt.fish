@@ -1,7 +1,7 @@
 function fish_prompt --description 'Simple prompt'
     # Get current git branch if in a git repository
     set -l git_branch (git branch --show-current 2>/dev/null)
-    set -l icon '>'
+    set -l icon (test (id -u) -eq 0; and echo '#'; or echo '%')
 
     # Build the prompt
     printf '%s%s@%s%s %s%s%s %s%s%s' \

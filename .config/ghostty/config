@@ -5,5 +5,6 @@
 # Additionally, each config option is also explained in detail
 # on Ghostty's website, at https://ghostty.org/docs/config.
 
-theme = light:Gruvbox Light Hard,dark:Gruvbox Dark Hard
+#theme = light:Gruvbox Light Hard,dark:Gruvbox Dark Hard
+theme = Gruvbox Dark Hard
 keybind = shift+enter=text:\x1b\r

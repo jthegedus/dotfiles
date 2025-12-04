@@ -1,1 +1,0 @@
-# custom .bash_logout

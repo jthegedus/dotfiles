@@ -35,7 +35,7 @@ function ssh-check --description "Check SSH agent status and provide diagnostics
                 set has_error 1
             end
         else
-            set --local key_count (ssh-add -l | wc -l)
+            set --local key_count (ssh-add -l | command wc -l)
             echo "✅ SSH agent is responding with $key_count key(s) loaded"
         end
     end
