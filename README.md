@@ -1,5 +1,6 @@
 # Dotfiles
 >trying to keep things simple while practising the basics.
+
 - Fish shell with Toybox coreutils (via Docker)
 - Bitwarden as the SSH agent
 - Per repository git configuration (`git-setup`)
@@ -7,8 +8,6 @@
 Contents:
 
 - [Install](#install)
-- [Structure](#structure)
-- [Aliases](#aliases)
 - [Toybox](#toybox)
 - [Git Setup](#git-setup)
 - [Tools](#tools)
@@ -32,73 +31,11 @@ echo $(which fish) | sudo tee -a /etc/shells
 chsh -s $(which fish)
 ```
 
-## Structure
+Investigate the configurations:
 
+```fish
+alias
 ```
-.config/
-├── fish/
-│   ├── config.fish      # All shell configuration
-│   └── functions/       # Auto-loaded functions
-├── ghostty/             # Terminal emulator
-├── git/                 # Git config (difftastic, mergiraf)
-├── helix/               # Editor
-├── ssh/                 # SSH configuration
-└── vim/                 # Fallback editor
-```
-
-## Aliases
-
-<details>
-<summary>File operations:</summary>
-
-- `ll` - `toybox ls -Achop!`
-- `rm` - `toybox rm -Iv` (interactive, verbose)
-- `mv` - `toybox mv -i` (interactive)
-- `df` - `toybox df -h` (human-readable)
-- `du` - `toybox du -h -d 1`
-
-</details>
-
-<details>
-<summary>Navigation:</summary>
-
-- `..`, `...`, `....`, `.....` - Navigate up directories
-- `q` - `cd ~`
-- `d` - `cd ~/dev`
-- `cl` - `clear`
-
-</details>
-
-<details>
-<summary>Git:</summary>
-
-- `gl` - `git log --all --decorate --oneline --graph`
-- `gs` - `git status --short`
-- `ga` - `git add`
-- `gc` - `git commit --message`
-- `gp` - `git push`
-- `gpl` - `git pull`
-
-</details>
-
-<details>
-<summary>Regex (grex):</summary>
-
-- `rx` - `grex` (generate regex from examples)
-- `rxd` - `grex --digits` (use \d for digits)
-- `rxw` - `grex --words` (use \w for word chars)
-- `rxs` - `grex --spaces` (use \s for whitespace)
-
-</details>
-
-<details>
-<summary>AST search (ast-grep):</summary>
-
-- `sg` - `ast-grep` (AST-based code search)
-- `sgp` - `ast-grep --pattern` (search with pattern)
-- `sgl` - `ast-grep --pattern --lang` (search with pattern and language)
-
-</details>
 
 ## Toybox
 
@@ -117,11 +54,9 @@ The wrapper:
 
 Use `command <cmd>` to bypass toybox and use system commands directly.
 
-Note: Docker adds ~100-500ms overhead per command.
-
 ## Git Setup
 
-The `git-setup` function configures new repositories with identity and SSH authentication:
+I like to manage repository config on a per-repository basis. Run `git-setup` after `init` or `clone` to configure the repository with identity and SSH authentication:
 
 ```fish
 git-setup
@@ -135,6 +70,8 @@ This prompts for:
 
 ### SSH Authentication Flow
 
+With Bitwarden as the SSH Agent, we can keep our private keys in our vault and use our public keys in `~/.ssh/*.pub` for lookups. The `git-setup` function configures the `git` command to use `ssh` with our public keys for manual Bitwarden authorization on each use.
+
 ```
 Git Command → SSH -i key.pub → SSH Agent → Bitwarden → GitHub
 ```
@@ -146,23 +83,33 @@ Git Command → SSH -i key.pub → SSH Agent → Bitwarden → GitHub
 
 ## Tools
 
+- Fish: reliable & featureful shell
+- Toybox: suckless-ish, portable, 0BSD licenced utils
+
 Install via Homebrew:
+
 ```bash
 brew install \
-  ast-grep \
   fish \
-  git \
-  grex \
   helix \
   vim \
+  git \
   difftastic \
   mergiraf \
+  ast-grep \
+  grex \
   tailscale
 
 brew install --cask \
   bitwarden \
   ghostty \
   claude-code
+```
+
+Install via Docker:
+
+```bash
+docker pull tianon/toybox:latest
 ```
 
 ## Dependencies
