@@ -1,11 +1,19 @@
 # Dotfiles
 >trying to keep things simple while practising the basics.
-
-## Features
-
 - Fish shell with Toybox coreutils (via Docker)
 - Bitwarden as the SSH agent
 - Per repository git configuration (`git-setup`)
+
+Contents:
+
+- [Install](#install)
+- [Structure](#structure)
+- [Aliases](#aliases)
+- [Toybox](#toybox)
+- [Git Setup](#git-setup)
+- [Tools](#tools)
+- [Dependencies](#dependencies)
+- [Licence](#licence)
 
 ## Install
 
@@ -49,7 +57,7 @@ chsh -s $(which fish)
 - `df` - `toybox df -h` (human-readable)
 - `du` - `toybox du -h -d 1`
 
-</summary>
+</details>
 
 <details>
 <summary>Navigation:</summary>
@@ -138,7 +146,7 @@ Git Command → SSH -i key.pub → SSH Agent → Bitwarden → GitHub
 
 ## Tools
 
-**Install via Homebrew:**
+Install via Homebrew:
 ```bash
 brew install \
   ast-grep \
