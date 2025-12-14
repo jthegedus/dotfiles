@@ -1,0 +1,37 @@
+# Brewfile - Homebrew packages for dotfiles
+
+# Shell
+brew "fish"
+## install latest for Bash & ZSH so we do not use old system installations
+brew "bash"
+brew "zsh"
+
+# Editors
+brew "vim"
+brew "helix"
+
+# Git & diff tools
+brew "git"
+brew "difftastic"
+brew "mergiraf"
+brew "lazygit"
+
+# Development languages
+brew "go"
+brew "node"
+brew "python"
+brew "zig"
+
+# Search & generation
+brew "grex"
+brew "ast-grep"
+
+# macOS only
+cask "bitwarden" if OS.mac?
+cask "ghostty" if OS.mac?
+cask "claude-code" if OS.mac?
+cask "aerospace" if OS.mac?
+cask "alt-tab" if OS.mac?
+cask "font-commit-mono-nerd-font" if OS.mac?
+cask "raycast" if OS.mac?
+cask "zed" if OS.mac?

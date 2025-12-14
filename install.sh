@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 REPO_ROOT="$(dirname "$(realpath "$0")")"
 
@@ -18,6 +19,36 @@ remove_dead_symlinks() {
 }
 
 echo "=== Setting up dotfiles ==="
+echo
+
+# Install Homebrew if not present
+echo "Checking Homebrew..."
+if ! command -v brew &>/dev/null; then
+	echo "Installing Homebrew..."
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+	# Add Homebrew to PATH for this session
+	if [[ "$(uname)" == "Darwin" ]]; then
+		if [[ -x /opt/homebrew/bin/brew ]]; then
+			eval "$(/opt/homebrew/bin/brew shellenv)"
+		elif [[ -x /usr/local/bin/brew ]]; then
+			eval "$(/usr/local/bin/brew shellenv)"
+		fi
+	else
+		if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+			eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+		elif [[ -x "$HOME/.linuxbrew/bin/brew" ]]; then
+			eval "$("$HOME/.linuxbrew/bin/brew" shellenv)"
+		fi
+	fi
+else
+	echo "Homebrew already installed"
+fi
+echo
+
+# Install packages via Brewfile
+echo "Installing packages..."
+brew bundle --file="${REPO_ROOT}/.config/brewfile/Brewfile"
 echo
 
 # Symlink contents of .config subdirectories
@@ -75,5 +106,25 @@ remove_dead_symlinks "${HOME}/.config"
 remove_dead_symlinks "${HOME}/.ssh"
 echo
 
-echo "=== Dotfiles setup complete ==="
+# Set Fish as default shell
+echo "Setting up Fish shell..."
+fish_path="$(command -v fish)"
+if [[ -n "$fish_path" ]]; then
+	if ! grep -q "$fish_path" /etc/shells; then
+		echo "Adding Fish to /etc/shells (requires sudo)..."
+		echo "$fish_path" | sudo tee -a /etc/shells
+	fi
 
+	if [[ "$SHELL" != "$fish_path" ]]; then
+		echo "Setting Fish as default shell..."
+		chsh -s "$fish_path"
+	else
+		echo "Fish is already the default shell"
+	fi
+else
+	echo "Warning: Fish not found in PATH"
+fi
+echo
+
+echo "=== Dotfiles setup complete ==="
+echo "Restart your terminal to use Fish shell."

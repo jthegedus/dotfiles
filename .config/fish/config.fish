@@ -12,6 +12,7 @@ set -q XDG_CONFIG_DIRS; or set -gx XDG_CONFIG_DIRS /etc/xdg
 
 # Set XDG usage for programs
 set -gx LESSHISTFILE "$XDG_CACHE_HOME/less_history"
+set -gx VIMINIT 'source $XDG_CONFIG_HOME/vim/.vimrc'
 
 # SSH Check toggle
 set -q ENABLE_SSH_CHECK; or set -gx ENABLE_SSH_CHECK 1
@@ -59,67 +60,69 @@ if type -q claude
     end
 end
 
+abbr ls 'ls -AHFG'
+abbr ll 'ls -AHoFG'
 # Aliases - toybox with fallback to system
-alias ls 'toybox ls -ACp'
-alias ll 'toybox ls -Achop!'
-alias rm 'toybox rm -iv'
-alias mv 'toybox mv -i'
-alias cp 'toybox cp'
-alias cat 'toybox cat'
-alias df 'toybox df -h'
-alias du 'toybox du -h -d 1'
-alias mkdir 'toybox mkdir'
-alias rmdir 'toybox rmdir'
-alias touch 'toybox touch'
-alias chmod 'toybox chmod'
-alias chown 'toybox chown'
-alias grep 'toybox grep'
-alias sed 'toybox sed'
-alias awk 'toybox awk'
-alias sort 'toybox sort'
-alias uniq 'toybox uniq'
-alias head 'toybox head'
-alias tail 'toybox tail'
-alias cut 'toybox cut'
-alias tr 'toybox tr'
-alias wc 'toybox wc'
-alias find 'toybox find'
-alias which 'toybox which'
-alias xargs 'toybox xargs'
-alias date 'toybox date'
-alias basename 'toybox basename'
-alias dirname 'toybox dirname'
-alias wget 'toybox wget'
+# abbr ls 'toybox ls -ACp --color=auto'
+# abbr ll 'toybox ls -Achop! --color=auto'
+# abbr rm 'toybox rm -iv'
+# abbr mv 'toybox mv -i'
+# abbr cp 'toybox cp'
+# abbr cat 'toybox cat'
+# abbr df 'toybox df -h'
+# abbr du 'toybox du -h -d 1'
+# abbr mkdir 'toybox mkdir'
+# abbr rmdir 'toybox rmdir'
+# abbr touch 'toybox touch'
+# abbr chmod 'toybox chmod'
+# abbr chown 'toybox chown'
+# abbr grep 'toybox grep'
+# abbr sed 'toybox sed'
+# abbr awk 'toybox awk'
+# abbr sort 'toybox sort'
+# abbr uniq 'toybox uniq'
+# abbr head 'toybox head'
+# abbr tail 'toybox tail'
+# abbr cut 'toybox cut'
+# abbr tr 'toybox tr'
+# abbr wc 'toybox wc'
+# abbr find 'toybox find'
+# abbr which 'toybox which'
+# abbr xargs 'toybox xargs'
+# abbr date 'toybox date'
+# abbr basename 'toybox basename'
+# abbr dirname 'toybox dirname'
+# abbr wget 'toybox wget'
 
 # Navigation
-alias p 'ps aux | grep'
-alias .. 'cd ..'
-alias ... 'cd ../..'
-alias .... 'cd ../../..'
-alias ..... 'cd ../../../..'
-alias ...... 'cd ../../../../..'
-alias q 'cd ~'
-alias d 'cd ~/dev'
-alias cl clear
+abbr p 'ps aux | grep'
+abbr .. 'cd ..'
+abbr ... 'cd ../..'
+abbr .... 'cd ../../..'
+abbr ..... 'cd ../../../..'
+abbr ...... 'cd ../../../../..'
+abbr q 'cd ~'
+abbr d 'cd ~/dev'
+abbr cl clear
 
 # Git
-alias gl 'git log --all --decorate --oneline --graph'
-alias gs 'git status --short'
-alias ga 'git add'
-alias gc 'git commit --message'
-alias gp 'git push'
-alias gpl 'git pull'
+abbr gl 'git log --all --decorate --oneline --graph'
+abbr gs 'git status --short'
+abbr ga 'git add'
+abbr --set-cursor gc 'git commit --message "%"'
+abbr gp 'git push'
+abbr gpl 'git pull'
 
 # Regex generation (grex)
-alias rx 'grex'
-alias rxd 'grex --digits'
-alias rxw 'grex --words'
-alias rxs 'grex --spaces'
+abbr rx grex
+abbr rxd 'grex --digits'
+abbr rxw 'grex --words'
+abbr rxs 'grex --spaces'
 
 # AST-based search (ast-grep)
-alias sg 'ast-grep'
-alias sgp 'ast-grep --pattern'
-alias sgl 'ast-grep --pattern --lang'
+abbr sg ast-grep
+abbr --set-cursor sgp 'ast-grep --pattern "%"'
+abbr --set-cursor sgl 'ast-grep --pattern "%" --lang '
 
 # Antigravity
 fish_add_path $HOME/.antigravity/antigravity/bin

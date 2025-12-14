@@ -1,17 +1,17 @@
 # Dotfiles
 >trying to keep things simple while practising the basics.
 
-- Fish shell with Toybox coreutils (via Docker)
+- Tools: Fish, Git, Helix, Vim, Go, Zig, Difftastic, Mergiraf, ast-grep, grex, Claude Code
+<!--- Toybox coreutils via Docker (aliased)-->
 - Bitwarden as the SSH agent
-- Per repository git configuration (`git-setup`)
+- Per-repository git configuration (`git-setup` & `git-clone`)
 
 Contents:
-
 - [Install](#install)
-- [Toybox](#toybox)
+- [Structure](#structure)
+- [SSH Authentication Flow](#ssh-authentication-flow)
 - [Git Setup](#git-setup)
-- [Tools](#tools)
-- [Dependencies](#dependencies)
+- [References](#references)
 - [Licence](#licence)
 
 ## Install
@@ -21,107 +21,93 @@ git clone https://github.com/jthegedus/dotfiles.git ~/dev/dotfiles
 bash ~/dev/dotfiles/install.sh
 ```
 
-Then set Fish as your default shell:
+This will:
+1. Install Homebrew (if not present)
+2. Install all tools via Brewfile
+3. Configure Claude Code (disable auto-updater)
+4. Symlink config files to `~/.config`
+5. Set up SSH configuration
+6. Set Fish as the default shell
 
-```bash
-# Add Fish to allowed shells (if needed)
-echo $(which fish) | sudo tee -a /etc/shells
+Enable Bitwarden SSH Agent:
 
-# Change default shell
-chsh -s $(which fish)
+1. Open Bitwarden Desktop
+2. Settings > SSH Agent > Enable
+3. Unlock vault
+
+## Structure
+
+```
+dotfiles/
+├── .config/              # Symlinked to ~/.config
+│   ├── brewfile/         # Homebrew packages
+│   ├── fish/             # Shell config and functions
+│   ├── git/              # Git config, attributes, ignore
+│   ├── helix/            # Editor config
+│   ├── ssh/config.d/     # Modular SSH configuration
+│   └── vim/              # Fallback editor config
+├── .ssh/
+│   └── config.example    # Template copied to ~/.ssh/config
+├── install.sh            # Setup script
+└── README.md
 ```
 
-Investigate the configurations:
+## SSH Authentication Flow
 
-```fish
-alias
+```
+Git Command -> SSH -i key.pub -> Bitwarden SSH Agent -> GitHub
 ```
 
-## Toybox
+1. Git uses `core.sshCommand` with public key as identifier
+2. Bitwarden finds matching private key in vault
+3. User approves in Bitwarden
+4. Authentication completes
 
-Coreutils aliases route through a smart `toybox` wrapper function:
-
-```fish
-alias ls 'toybox ls -ACp'
-alias cat 'toybox cat'
-# ... etc
-```
-
-The wrapper:
-- Checks docker and image availability (once per session)
-- Falls back to system commands if unavailable
-- Shows `docker pull tianon/toybox:latest` if image missing
-
-Use `command <cmd>` to bypass toybox and use system commands directly.
+Avoids storing private keys in your `~/.ssh/` directory.
 
 ## Git Setup
 
-I like to manage repository config on a per-repository basis. Run `git-setup` after `init` or `clone` to configure the repository with identity and SSH authentication:
+I like to manage repository config on a per-repository basis. The following commands with prompt for:
+- `user.name`
+- `user.email`
+- SSH signing key (optional)
+- SSH authentication identity
 
-```fish
+Run `git-setup` after a local `git init` to configure a repository with identity and SSH authentication:
+
+```bash
 git-setup
 ```
 
-This prompts for:
-- Git identity (user.name, user.email)
-- SSH signing key (optional)
-- SSH identity for authentication
-- Remote repository URL
-
-### SSH Authentication Flow
-
-With Bitwarden as the SSH Agent, we can keep our private keys in our vault and use our public keys in `~/.ssh/*.pub` for lookups. The `git-setup` function configures the `git` command to use `ssh` with our public keys for manual Bitwarden authorization on each use.
-
-```
-Git Command → SSH -i key.pub → SSH Agent → Bitwarden → GitHub
-```
-
-1. Git uses `core.sshCommand` with **public key** as identifier
-2. SSH Agent finds matching private key
-3. Bitwarden requires user approval
-4. Authentication completes
-
-## Tools
-
-- Fish: reliable & featureful shell
-- Toybox: suckless-ish, portable, 0BSD licenced utils
-
-Install via Homebrew:
+Run `git-clone` to clone a repository and then configure the per-repository configuration like `git-setup`:
 
 ```bash
-brew install \
-  fish \
-  helix \
-  vim \
-  git \
-  difftastic \
-  mergiraf \
-  ast-grep \
-  grex \
-  tailscale
-
-brew install --cask \
-  bitwarden \
-  ghostty \
-  claude-code
+git-clone <remote-url> [destination]
 ```
 
-Install via Docker:
+</details>
+
+<details>
+<summary>Toybox Coreutils</summary>
+
+>NOTE: not currently configured
+
+Toybox provides consistent coreutils across platforms via Docker:
 
 ```bash
 docker pull tianon/toybox:latest
 ```
 
-## Dependencies
+Commands like `ls`, `cp`, `mv` can be aliased to use toybox when available.
 
-Required:
-- Docker (for Toybox coreutils)
-- Fish shell
-- Bitwarden desktop app (for SSH agent)
+</details>
 
-`install.sh` requires:
-- bash
-- ln, mkdir, chmod, cp, stat, realpath, dirname (system coreutils)
+## References
+
+I recommend reading about the following:
+
+- [suckless](https://suckless.org/) - quality software with simplicity, clarity, frugality
+- [Toybox](https://landley.net/toybox/) - 0BSD licensed, simple, small, fast coreutils
 
 ## Licence
 

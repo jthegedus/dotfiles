@@ -1,6 +1,8 @@
 " Turn on syntax highlighting, line numbers, auto indent, smart indent, wrap lines, smart tabs, wildmenu, ignore case while searching, smart case, highlight search, move to search, regex magic, show matching brackets, and spaces instead of tabs
 set nu rnu ai si wrap smarttab wildmenu ignorecase smartcase hlsearch incsearch magic showmatch expandtab
 syntax on
+colorscheme gruvbox
+set background=dark
 
 " 1 tab == 4 spaces
 set shiftwidth=4
