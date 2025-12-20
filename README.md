@@ -44,10 +44,9 @@ dotfiles/
 │   ├── fish/             # Shell config and functions
 │   ├── git/              # Git config, attributes, ignore
 │   ├── helix/            # Editor config
-│   ├── ssh/config.d/     # Modular SSH configuration
 │   └── vim/              # Fallback editor config
 ├── .ssh/
-│   └── config.example    # Template copied to ~/.ssh/config
+│   └── config            # Symlinked to ~/.ssh/config
 ├── install.sh            # Setup script
 └── README.md
 ```

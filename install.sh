@@ -1,22 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
+shopt -s dotglob
 
 REPO_ROOT="$(dirname "$(realpath "$0")")"
-
-# Function to remove dead symlinks in a directory (recursively)
-remove_dead_symlinks() {
-	local dir="$1"
-	if [[ ! -d "$dir" ]]; then
-		return
-	fi
-
-	find "$dir" -type l | while read -r link; do
-		if [[ ! -e "$link" ]]; then
-			echo "Removing dead symlink: $link"
-			rm -f "$link"
-		fi
-	done
-}
 
 echo "=== Setting up dotfiles ==="
 echo
@@ -51,78 +37,88 @@ echo "Installing packages..."
 brew bundle --file="${REPO_ROOT}/.config/brewfile/Brewfile"
 echo
 
-# Symlink contents of .config subdirectories
-echo "Linking .config contents..."
-find "${REPO_ROOT}/.config" -maxdepth 1 -type d -not -path "${REPO_ROOT}/.config" | while read -r repo_dir; do
-	subdir="$(basename "$repo_dir")"
-	target_dir="${HOME}/.config/${subdir}"
+# Collect items to symlink (relative paths from repo root)
+echo "Collecting dotfiles..."
+symlink_items=()
 
-	# Create the parent directory if it doesn't exist
-	mkdir -p "$target_dir"
-
-	# Symlink each item (file or directory) within the subdirectory
-	find "$repo_dir" -maxdepth 1 -not -path "$repo_dir" | while read -r item; do
-		item_name="$(basename "$item")"
-		source_item="$item"
-		target_item="${target_dir}/${item_name}"
-
-		# If target is already a symlink pointing to source, skip
-		if [[ -L "$target_item" ]] && [[ "$(readlink -f "$target_item")" == "$source_item" ]]; then
-			echo "Already linked: $target_item"
-			continue
-		fi
-
-		# If target exists as a directory (not a symlink), remove it
-		# This prevents ln from creating the symlink inside the directory
-		if [[ -d "$target_item" ]] && [[ ! -L "$target_item" ]]; then
-			rm -rf "$target_item"
-		fi
-
-		# Create the symlink (force overwrite if it exists)
-		ln -s -f -v "$source_item" "$target_item"
+# .config subdirectories: symlink immediate children of each subdir
+for subdir in "${REPO_ROOT}/.config"/*/; do
+	[[ -d "$subdir" ]] || continue
+	for item in "$subdir"*; do
+		[[ -e "$item" ]] || continue
+		symlink_items+=("${item#"$REPO_ROOT"/}")
 	done
+done
+
+# .ssh: symlink all files/directories
+for item in "${REPO_ROOT}/.ssh"/*; do
+	[[ -e "$item" ]] || continue
+	symlink_items+=("${item#"$REPO_ROOT"/}")
+done
+
+# Create parent directories
+echo "Creating directories..."
+for rel_path in "${symlink_items[@]}"; do
+	mkdir -p "$(dirname "${HOME}/${rel_path}")"
+done
+
+# SSH directory permissions
+if [[ -d "${HOME}/.ssh" ]]; then
+	chmod 700 "${HOME}/.ssh"
+	mkdir -p "${HOME}/.ssh/control"
+fi
+
+# Create symlinks
+echo "Linking dotfiles..."
+for rel_path in "${symlink_items[@]}"; do
+	source="${REPO_ROOT}/${rel_path}"
+	target="${HOME}/${rel_path}"
+
+	if [[ -L "$target" ]] && [[ "$(readlink -f "$target")" == "$source" ]]; then
+		echo "Already linked: ${rel_path}"
+		continue
+	fi
+
+	# Remove existing directory to prevent symlink being created inside it
+	if [[ -d "$target" ]] && [[ ! -L "$target" ]]; then
+		rm -rf "$target"
+	fi
+
+	ln -s -f -v "$source" "$target"
 done
 echo
 
-
-# copy SSH config.example to config if config doesn't exist
-echo "Setting up SSH configuration..."
-mkdir -p "${HOME}/.ssh"
-mkdir -p "${HOME}/.ssh/control"
-# Set proper SSH directory permissions
-chmod 700 "${HOME}/.ssh"
-if [[ -f "${REPO_ROOT}/.ssh/config.example" ]]; then
-	if [[ ! -e "${HOME}/.ssh/config" ]]; then
-		cp -v "${REPO_ROOT}/.ssh/config.example" "${HOME}/.ssh/config"
-	else
-		echo "Warning: ~/.ssh/config already exists, skipping config.example"
-	fi
-fi
-echo
-
-# Final cleanup: remove any remaining dead symlinks
+# Clean up dead symlinks
 echo "Cleaning up dead symlinks..."
-remove_dead_symlinks "${HOME}/.config"
-remove_dead_symlinks "${HOME}/.ssh"
+for dir in "${HOME}/.config" "${HOME}/.ssh"; do
+	[[ -d "$dir" ]] || continue
+	find "$dir" -type l ! -exec test -e {} \; -delete -print
+done
 echo
 
-# Set Fish as default shell
-echo "Setting up Fish shell..."
-fish_path="$(command -v fish)"
-if [[ -n "$fish_path" ]]; then
-	if ! grep -q "$fish_path" /etc/shells; then
-		echo "Adding Fish to /etc/shells (requires sudo)..."
-		echo "$fish_path" | sudo tee -a /etc/shells
+# Set Fish as default shell (only if not already)
+echo "Checking Fish shell..."
+fish_path="$(command -v fish || true)"
+if [[ -z "$fish_path" ]]; then
+	echo "Warning: Fish not found in PATH"
+else
+	# Get actual login shell from system database (not $SHELL which is stale)
+	if [[ "$(uname)" == "Darwin" ]]; then
+		current_shell="$(dscl . -read /Users/"$(whoami)" UserShell | awk '{print $2}')"
+	else
+		current_shell="$(getent passwd "$(whoami)" | cut -d: -f7)"
 	fi
 
-	if [[ "$SHELL" != "$fish_path" ]]; then
+	if [[ "$current_shell" == "$fish_path" ]]; then
+		echo "Fish is already the default shell"
+	else
+		if ! grep -q "$fish_path" /etc/shells; then
+			echo "Adding Fish to /etc/shells (requires sudo)..."
+			echo "$fish_path" | sudo tee -a /etc/shells
+		fi
 		echo "Setting Fish as default shell..."
 		chsh -s "$fish_path"
-	else
-		echo "Fish is already the default shell"
 	fi
-else
-	echo "Warning: Fish not found in PATH"
 fi
 echo
 
