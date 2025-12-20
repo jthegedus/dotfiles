@@ -1,21 +1,23 @@
 # global .gitignore file
 
-##########
-### AI ###
-##########
+# --- AI ---
 
-# Claude Code: local settings (default configuration)
-**/.claude/settings.local.json
-
-# General AI settings
+## General
 AGENTS.md
-CLAUDE.md
-.claude/**
-.mcp.json
 
-# Claude Code: local cache (a custom setup)
+## Claude Code
 .env.mcp.secrets
+.claude/**
 .claude/generated/cache/**
+**/.claude/settings.local.json
+CLAUDE.md
 
-# Operating Systems
+## MCPs
+.mcp.json
+beads/
+
+## Shh
+.agentattributes/
+
+# --- Operating Systems ---
 .DS_Store
