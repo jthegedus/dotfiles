@@ -109,6 +109,33 @@ I recommend reading about the following:
 - [suckless](https://suckless.org/) - quality software with simplicity, clarity, frugality
 - [Toybox](https://landley.net/toybox/) - 0BSD licensed, simple, small, fast coreutils
 
+<details>
+<summary>themes</summary>
+
+Note to future me, theme-hop these:
+* Afterglow
+* Birds Of Paradise
+* Everblush
+* Everforest dark hard
+* Everforest light med
+* Miasma
+* Mona Lisa
+* N0tch2k
+* Neopolitan
+* novmbr
+* Owl
+* Red Planet
+* Sea Shells
+* Sleepy Hollow
+* Spacegray Eighties Dull
+* Sundried
+* Wombat
+* Zenbones (dark & light)
+
+Sourced from - https://github.com/mbadolato/iTerm2-Color-Schemes
+
+</details>
+
 ## Licence
 
 ```
