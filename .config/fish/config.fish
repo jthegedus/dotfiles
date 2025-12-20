@@ -61,7 +61,7 @@ if type -q claude
 end
 
 abbr ls 'ls -AHFG'
-abbr ll 'ls -AHoFG'
+abbr ll 'ls -AHFGho'
 # Aliases - toybox with fallback to system
 # abbr ls 'toybox ls -ACp --color=auto'
 # abbr ll 'toybox ls -Achop! --color=auto'
