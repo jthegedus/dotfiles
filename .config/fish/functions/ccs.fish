@@ -4,6 +4,10 @@ function ccs --description "Claude Code with Secrets: Run claude command with en
 
     if test -f .env.mcp.secrets
         while read --local line
+            # Skip empty lines and comments
+            if string match --quiet --regex "^\\s*#" -- "$line"; or string match --quiet --regex "^\\s*\$" -- "$line"
+                continue
+            end
             if string match --quiet "*=*" -- "$line"
                 set --local key_value (string split --max 1 "=" -- "$line")
                 if test (count $key_value) -eq 2
