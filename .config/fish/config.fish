@@ -111,6 +111,7 @@ abbr gs 'git status --short'
 abbr ga 'git add'
 abbr --set-cursor gc 'git commit --message "%"'
 abbr gp 'git push'
+abbr gpf 'git push --force'
 abbr gpl 'git pull'
 
 # Regex generation (grex)
