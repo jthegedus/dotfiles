@@ -1,6 +1,4 @@
-# description: copy DIR1 to DIR2
-# usage: copy DIR1 DIR2
-function copy
+function copy --description "Copy directories recursively (cp wrapper)"
     set count (count $argv | tr -d '\n')
     if test "$count" = 2; and test -d "$argv[1]"
         set from (echo $argv[1] | string trim --right --chars=/)

@@ -1,4 +1,4 @@
-function ssh-check --description "Check SSH agent status and provide diagnostics"
+function __ssh-check --description "Check SSH agent status and provide diagnostics"
     set --local has_error 0
 
     # 1. Check SSH_AUTH_SOCK environment variable

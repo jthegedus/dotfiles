@@ -1,16 +1,21 @@
 # Dotfiles
->trying to keep things simple while practising the basics.
+
+> trying to keep things simple while practising the basics.
 
 - Tools: Fish, Git, Helix, Vim, Go, Zig, Difftastic, Mergiraf, ast-grep, grex, Claude Code
 <!--- Toybox coreutils via Docker (aliased)-->
 - Bitwarden as the SSH agent
 - Per-repository git configuration (`git-setup` & `git-clone`)
+- Update system with `up`/`update`
+- Abbreviations (list them with `abbr`)
 
 Contents:
+
 - [Install](#install)
 - [Structure](#structure)
 - [SSH Authentication Flow](#ssh-authentication-flow)
-- [Git Setup](#git-setup)
+- [Git](#git)
+- [Fish Commands](#fish-commands)
 - [References](#references)
 - [Licence](#licence)
 
@@ -22,6 +27,7 @@ bash ~/dev/dotfiles/install.sh
 ```
 
 This will:
+
 1. Install Homebrew (if not present)
 2. Install all tools via Brewfile
 3. Configure Claude Code (disable auto-updater)
@@ -64,9 +70,10 @@ Git Command -> SSH -i key.pub -> Bitwarden SSH Agent -> GitHub
 
 Avoids storing private keys in your `~/.ssh/` directory.
 
-## Git Setup
+## Git
 
 I like to manage repository config on a per-repository basis. The following commands with prompt for:
+
 - `user.name`
 - `user.email`
 - SSH signing key (optional)
@@ -86,10 +93,25 @@ git-clone <remote-url> [destination]
 
 </details>
 
+## Fish Commands
+
+Fish abbreviations expand inline as you type. List them with `abbr`.
+
+Noteable custom Fish functions:
+
+| Function        | Description                                              |
+| --------------- | -------------------------------------------------------- |
+| `update` / `up` | Update system packages via Homebrew                      |
+| `cc`            | Run Claude Code with MCP secrets from `.env.mcp.secrets` |
+| `git-setup`     | Configure git identity and SSH for current repository    |
+| `git-clone`     | Clone repository and configure identity/SSH              |
+| `backup`        | Backup a file with .bak suffix                           |
+| `copy`          | Copy directories recursively (cp wrapper)                |
+
 <details>
 <summary>Toybox Coreutils</summary>
 
->NOTE: not currently configured
+> NOTE: not currently configured
 
 Toybox provides consistent coreutils across platforms via Docker:
 
@@ -112,24 +134,25 @@ I recommend reading about the following:
 <summary>themes</summary>
 
 Note to future me, theme-hop these:
-* Afterglow
-* Birds Of Paradise
-* Everblush
-* Everforest dark hard
-* Everforest light med
-* Miasma
-* Mona Lisa
-* N0tch2k
-* Neopolitan
-* novmbr
-* Owl
-* Red Planet
-* Sea Shells
-* Sleepy Hollow
-* Spacegray Eighties Dull
-* Sundried
-* Wombat
-* Zenbones (dark & light)
+
+- Afterglow
+- Birds Of Paradise
+- Everblush
+- Everforest dark hard
+- Everforest light med
+- Miasma
+- Mona Lisa
+- N0tch2k
+- Neopolitan
+- novmbr
+- Owl
+- Red Planet
+- Sea Shells
+- Sleepy Hollow
+- Spacegray Eighties Dull
+- Sundried
+- Wombat
+- Zenbones (dark & light)
 
 Sourced from - https://github.com/mbadolato/iTerm2-Color-Schemes
 

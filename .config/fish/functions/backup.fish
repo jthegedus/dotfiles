@@ -1,5 +1,3 @@
-# description: backup a file with a .bak suffix
-# usage: backup filename
-function backup --argument filename
+function backup --argument filename --description "Backup (copy) a file with .bak suffix"
     cp $filename $filename.bak
 end

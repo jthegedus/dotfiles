@@ -60,9 +60,16 @@ if type -q claude
     end
 end
 
+### Abbreviations ###
+
+# abbr(s) of custom Fish Functions .config/fish/functions/**
+abbr up update
+
+# abbr(s) list files
 abbr ls 'ls -AHFG'
 abbr ll 'ls -AHFGho'
-# Aliases - toybox with fallback to system
+
+# Abbreviations - toybox with fallback to system
 # abbr ls 'toybox ls -ACp --color=auto'
 # abbr ll 'toybox ls -Achop! --color=auto'
 # abbr rm 'toybox rm -iv'
