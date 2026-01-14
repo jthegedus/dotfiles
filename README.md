@@ -3,19 +3,20 @@
 > trying to keep things simple while practising the basics.
 
 - Tools: Fish, Git, Helix, Vim, Go, Zig, Difftastic, Mergiraf, ast-grep, grex, Claude Code
-<!--- Toybox coreutils via Docker (aliased)-->
 - Bitwarden as the SSH agent
 - Per-repository git configuration (`git-setup` & `git-clone`)
 - Update system with `up`/`update`
 - Abbreviations (list them with `abbr`)
+- Desktop Environment: [MangoWC](https://mangowc.vercel.app/) & [DankMaterialShell](https://danklinux.com)
 
 Contents:
 
 - [Install](#install)
-- [Structure](#structure)
 - [SSH Authentication Flow](#ssh-authentication-flow)
 - [Git](#git)
 - [Fish Commands](#fish-commands)
+- [Linux Configurations](#linux-configurations)
+- [Other](#other)
 - [References](#references)
 - [Licence](#licence)
 
@@ -41,22 +42,6 @@ Enable Bitwarden SSH Agent:
 2. Settings > SSH Agent > Enable
 3. Unlock vault
 
-## Structure
-
-```
-dotfiles/
-├── .config/              # Symlinked to ~/.config
-│   ├── brewfile/         # Homebrew packages
-│   ├── fish/             # Shell config and functions
-│   ├── git/              # Git config, attributes, ignore
-│   ├── helix/            # Editor config
-│   └── vim/              # Fallback editor config
-├── .ssh/
-│   └── config            # Symlinked to ~/.ssh/config
-├── install.sh            # Setup script
-└── README.md
-```
-
 ## SSH Authentication Flow
 
 ```
@@ -74,10 +59,12 @@ Avoids storing private keys in your `~/.ssh/` directory.
 
 I like to manage repository config on a per-repository basis. The following commands with prompt for:
 
+- `remote.origin.url`
 - `user.name`
 - `user.email`
-- SSH signing key (optional)
-- SSH authentication identity
+- select SSH public keys from `~/.ssh/*.pub` for use as:
+  - authentication key
+  - signing key
 
 Run `git-setup` after a local `git init` to configure a repository with identity and SSH authentication:
 
@@ -122,6 +109,72 @@ docker pull tianon/toybox:latest
 Commands like `ls`, `cp`, `mv` can be aliased to use toybox when available.
 
 </details>
+
+## Linux Configurations
+
+### Hardware
+
+<details>
+<summary>MS-A1 w AMD 8700G</summary>
+
+The integrated GPU requires kernel parameters to prevent `ring gfx_0.0.0 timeout` crashes caused by MES (Micro Engine Scheduler) failures.
+
+Configured in `/etc/default/limine`, applied with `sudo limine-update`.
+
+```
+amdgpu.gpu_recovery=1
+amdgpu.ppfeaturemask=0xffff7fff
+amdgpu.runpm=0
+amdgpu.sg_display=0
+amdgpu.dcdebugmask=0x10
+```
+
+| Parameter       | Value      | Purpose                                |
+| --------------- | ---------- | -------------------------------------- |
+| `gpu_recovery`  | 1          | Enable GPU reset on hang               |
+| `ppfeaturemask` | 0xffff7fff | Disable GFXOFF (PP_GFXOFF_MASK bit 15) |
+| `runpm`         | 0          | Disable runtime power management       |
+| `sg_display`    | 0          | Disable scatter/gather display         |
+| `dcdebugmask`   | 0x10       | Disable PSR (Panel Self Refresh)       |
+
+Verify with: `cat /proc/cmdline | tr ' ' '\n' | grep gsamdgpu`
+
+</details>
+
+### Desktop Environments
+
+<details>
+<summary>Flatpak apps</summary>
+
+Flatpak app installs: `flatpak install com.bitwarden.desktop com.brave.Browser dev.zed.Zed`
+
+Wayland flags to launch properly from Wayland-native launchers:
+
+- Brave Browser (`~/.var/app/com.brave.Browser/config/brave-flags.conf`):
+
+  ```
+  --ozone-platform=wayland
+  --enable-features=UseOzonePlatform,VaapiVideoDecodeLinuxGL,WebRTCPipeWireCapturer
+  ```
+
+- Bitwarden:
+
+  ```bash
+  flatpak override --user --env=ELECTRON_OZONE_PLATFORM_HINT=wayland com.bitwarden.desktop
+  ```
+
+  This creates `~/.local/share/flatpak/overrides/com.bitwarden.desktop` with:
+
+  ```ini
+  [Environment]
+  ELECTRON_OZONE_PLATFORM_HINT=wayland
+  ```
+
+</details>
+
+## Other
+
+* fonts: [commitmono](https://commitmono.com/), which has a [Nerd Fonts patch](https://github.com/ryanoasis/nerd-fonts).
 
 ## References
 
