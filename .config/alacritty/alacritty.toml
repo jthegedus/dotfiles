@@ -1,0 +1,7 @@
+[font.normal]
+family = "CommitMono Nerd Font"
+
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001B\r"
