@@ -56,6 +56,12 @@ for item in "${REPO_ROOT}/.ssh"/*; do
 	symlink_items+=("${item#"$REPO_ROOT"/}")
 done
 
+# Pictures/wallpapers: symlink all files/directories
+for item in "${REPO_ROOT}/Pictures/wallpapers"/*; do
+	[[ -e "$item" ]] || continue
+	symlink_items+=("${item#"$REPO_ROOT"/}")
+done
+
 # Create parent directories
 echo "Creating directories..."
 for rel_path in "${symlink_items[@]}"; do
@@ -90,7 +96,7 @@ echo
 
 # Clean up dead symlinks
 echo "Cleaning up dead symlinks..."
-for dir in "${HOME}/.config" "${HOME}/.ssh"; do
+for dir in "${HOME}/.config" "${HOME}/.ssh" "${HOME}/Pictures/wallpapers"; do
 	[[ -d "$dir" ]] || continue
 	find "$dir" -type l ! -exec test -e {} \; -delete -print
 done
