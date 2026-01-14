@@ -14,6 +14,9 @@ set -q XDG_CONFIG_DIRS; or set -gx XDG_CONFIG_DIRS /etc/xdg
 set -gx LESSHISTFILE "$XDG_CACHE_HOME/less_history"
 set -gx VIMINIT 'source $XDG_CONFIG_HOME/vim/.vimrc'
 
+# PATH
+fish_add_path $HOME/.local/bin
+
 # SSH Check toggle
 set -q ENABLE_SSH_CHECK; or set -gx ENABLE_SSH_CHECK 1
 
@@ -30,9 +33,6 @@ if test -S "$bw_sock_path"
 else
     echo "Error: Bitwarden SSH agent socket not found at $bw_sock_path" >&2
 end
-
-# PATH
-fish_add_path ~/.local/bin
 
 # Homebrew
 if not set -q HOMEBREW_PREFIX

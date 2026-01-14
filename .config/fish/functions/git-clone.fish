@@ -17,17 +17,8 @@ function git-clone --description "Clone repository with user configuration"
     or return 1
 
     # Clone with SSH identity if provided
-    if test -n "$__git_ssh_identity" -a -n "$__git_ssh_pubkey"
-        if not test -d ~/.ssh
-            echo "Error: ~/.ssh directory does not exist" >&2
-            return 1
-        end
-
-        # Save public key before clone so SSH can find it
-        echo "$__git_ssh_pubkey" >~/.ssh/$__git_ssh_identity.pub
-        chmod 600 ~/.ssh/$__git_ssh_identity.pub
-
-        # Clone with custom SSH command
+    if test -n "$__git_ssh_identity"
+        # Clone with custom SSH command using selected key (public key triggers BitWarden SSH Agent lookup)
         GIT_SSH_COMMAND="ssh -i ~/.ssh/$__git_ssh_identity.pub -o IdentitiesOnly=yes" \
             git clone $remote_url $destination
         or return 1

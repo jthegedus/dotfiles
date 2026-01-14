@@ -13,19 +13,9 @@ function __git-config --description "Apply git identity configuration to current
         git config --local user.signingkey "$__git_signingkey"
     end
 
-    # Configure SSH identity if provided
-    if test -n "$__git_ssh_identity" -a -n "$__git_ssh_pubkey"
-        if not test -d ~/.ssh
-            echo "Error: ~/.ssh directory does not exist" >&2
-            return 1
-        end
-
-        echo "$__git_ssh_pubkey" >~/.ssh/$__git_ssh_identity.pub
-        chmod 600 ~/.ssh/$__git_ssh_identity.pub
-
+    # Configure SSH identity if provided (public key triggers BitWarden SSH Agent lookup)
+    if test -n "$__git_ssh_identity"
         git config --local core.sshCommand "ssh -i ~/.ssh/$__git_ssh_identity.pub -o IdentitiesOnly=yes"
-
-        echo "SSH identity configured: ~/.ssh/$__git_ssh_identity.pub"
     end
 
     # Configure remote URL if provided and not skipped
@@ -40,7 +30,7 @@ function __git-config --description "Apply git identity configuration to current
     end
 
     # Clean up global variables
-    set -e __git_name __git_email __git_signingkey __git_ssh_identity __git_ssh_pubkey __git_remote_url
+    set -e __git_name __git_email __git_signingkey __git_ssh_identity __git_remote_url
 
     return 0
 end
