@@ -1,2 +1,5 @@
 font-family = CommitMono Nerd Font
-theme = Gruvbox Dark Hard
+font-size = 14
+# theme = Gruvbox Dark Hard
+theme = dankcolors
+
