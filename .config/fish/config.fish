@@ -113,6 +113,7 @@ abbr d 'cd ~/dev'
 abbr cl clear
 
 # Git
+abbr gd 'git diff -a -p'
 abbr gl 'git log --all --decorate --oneline --graph'
 abbr gs 'git status --short'
 abbr ga 'git add'
