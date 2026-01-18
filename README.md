@@ -144,31 +144,44 @@ Verify with: `cat /proc/cmdline | tr ' ' '\n' | grep gsamdgpu`
 ### Desktop Environments
 
 <details>
-<summary>Flatpak apps</summary>
+<summary>pacman</summary>
 
-Flatpak app installs: `flatpak install com.bitwarden.desktop com.brave.Browser dev.zed.Zed`
+Install apps:
 
-Wayland flags to launch properly from Wayland-native launchers:
+```shell
+sudo pacman -Syu && sudo pacman -S fwupd wlr-randr flatpak ghostty steam tailscale
+```
 
-- Brave Browser (`~/.var/app/com.brave.Browser/config/brave-flags.conf`):
+</details>
 
+<details>
+<summary>Flatpak Applications</summary>
+
+Install apps:
+
+```bash
+flatpak install com.bitwarden.desktop com.brave.Browser dev.zed.Zed org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
+```
+
+Set DMS theme override:
+
+```shell
+sudo flatpak override --filesystem=xdg-data/themes
+sudo flatpak mask org.gtk.Gtk3theme.adw-gtk3
+sudo flatpak mask org.gtk.Gtk3theme.adw-gtk3-dark
+```
+
+Set app environment flags:
+
+* Brave Browser:
+  ```bash
+  flatpak override --user --env=CHROMIUM_FLAGS="--enable-features=UseOzonePlatform,VaapiVideoDecodeLinuxGL,WebRTCPipeWireCapturer" com.brave.Browser
   ```
-  --ozone-platform=wayland
-  --enable-features=UseOzonePlatform,VaapiVideoDecodeLinuxGL,WebRTCPipeWireCapturer
-  ```
-
-- Bitwarden:
-
+* Bitwarden:
   ```bash
   flatpak override --user --env=ELECTRON_OZONE_PLATFORM_HINT=wayland com.bitwarden.desktop
   ```
-
-  This creates `~/.local/share/flatpak/overrides/com.bitwarden.desktop` with:
-
-  ```ini
-  [Environment]
-  ELECTRON_OZONE_PLATFORM_HINT=wayland
-  ```
+>Note: the overrides create files in `~/.local/share/flatpak/overrides/*`
 
 </details>
 
