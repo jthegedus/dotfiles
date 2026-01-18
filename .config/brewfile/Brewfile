@@ -4,11 +4,17 @@
 brew "fish"
 ## install latest for Bash & ZSH so we do not use old system installations
 brew "bash"
+brew "oksh"
 brew "zsh"
 
 # Editors
 brew "vim"
 brew "helix"
+
+# Fonts
+cask "font-atkinson-hyperlegible-mono"
+cask "font-commit-mono-nerd-font"
+cask "font-jetbrains-mono-nerd-font"
 
 # Git & diff tools
 brew "git"
