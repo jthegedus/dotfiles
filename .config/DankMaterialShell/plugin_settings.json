@@ -1,0 +1,15 @@
+{
+  "dankActions": {
+    "enabled": true,
+    "variants": []
+  },
+  "dankPomodoroTimer": {
+    "enabled": true
+  },
+  "dankHooks": {
+    "enabled": true
+  },
+  "voxtype": {
+    "enabled": true
+  }
+}
