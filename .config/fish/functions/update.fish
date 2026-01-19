@@ -1,6 +1,6 @@
 function update --description "Update: firmware, system, userland cli & apps"
     # Firmware
-    if command -v fwupdmgr
+    if command -q fwupdmgr
         echo
         echo "--- fwupd firmware update ---"
         fwupdmgr refresh
@@ -8,14 +8,14 @@ function update --description "Update: firmware, system, userland cli & apps"
     end
 
     # System
-    if command -v pacman
+    if command -q pacman
         echo
         echo "--- pacman upgrade ---"
         sudo pacman -Syu
     end
 
     # Userland CLI & Apps
-    if command -v brew
+    if command -q brew
         echo
         echo "--- brew update ---"
         brew update
@@ -27,10 +27,9 @@ function update --description "Update: firmware, system, userland cli & apps"
         echo
         echo "--- brew upgrade --greedy ---"
         brew upgrade --greedy
-        echo
     end
 
-    if command -v flatpak
+    if command -q flatpak
         echo
         echo "--- flatpak update ---"
         flatpak update
