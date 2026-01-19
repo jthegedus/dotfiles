@@ -44,36 +44,111 @@ function __git-prompt --description "Prompt for git identity information"
         set --global __git_email $current_email
     end
 
-    # List available SSH public keys
-    set -l ssh_keys ~/.ssh/*.pub
-    if test (count $ssh_keys) -eq 0
-        echo "Error: No .pub files found in ~/.ssh" >&2
+    # Collect SSH keys from both local files and agent
+    set -l key_contents # Full public key line
+    set -l key_labels # Display label for each key
+    set -l key_files # Local file path (empty string if agent-only)
+    set -l local_count 0
+
+    # Collect from local ~/.ssh/*.pub files
+    for pubfile in ~/.ssh/*.pub
+        if test -f "$pubfile"
+            set -l content (string trim (cat $pubfile))
+            set -a key_contents $content
+            set -a key_labels (basename $pubfile)
+            set -a key_files $pubfile
+            set local_count (math $local_count + 1)
+        end
+    end
+
+    # Collect agent-only keys from SSH agent (ssh-add -L)
+    set -l agent_keys (ssh-add -L 2>/dev/null)
+    for agent_key in $agent_keys
+        set -l agent_keypart (string split ' ' $agent_key)[2]
+        set -l agent_comment (string split ' ' $agent_key)[3]
+        if test -z "$agent_comment"
+            set agent_comment "unnamed-key"
+        end
+
+        # Check if this key already exists locally (by key content)
+        set -l is_local false
+        for i in (seq (count $key_contents))
+            set -l existing_keypart (string split ' ' $key_contents[$i])[2]
+            if test "$agent_keypart" = "$existing_keypart"
+                set is_local true
+                break
+            end
+        end
+
+        # Only add if not already in local files
+        if test "$is_local" = false
+            set -a key_contents $agent_key
+            set -a key_labels $agent_comment
+            set -a key_files ""
+        end
+    end
+
+    if test (count $key_contents) -eq 0
+        echo "Error: No SSH keys found in ~/.ssh/*.pub or SSH agent" >&2
         return 1
     end
 
-    echo "Available SSH keys:"
-    for i in (seq (count $ssh_keys))
-        echo "  $i) "(basename $ssh_keys[$i])
+    # Display local keys
+    echo "~/.ssh/*.pub keys:"
+    if test $local_count -eq 0
+        echo "    (none)"
+    else
+        for i in (seq $local_count)
+            echo "    $i) $key_labels[$i]"
+        end
+    end
+    echo ""
+
+    # Display agent-only keys
+    set -l agent_only_count (math (count $key_contents) - $local_count)
+    echo "ssh-agent keys:"
+    if test $agent_only_count -eq 0
+        echo "    (all ssh-agent keys already in ~/.ssh)"
+    else
+        for i in (seq (math $local_count + 1) (count $key_contents))
+            echo "    $i) $key_labels[$i]"
+        end
     end
     echo ""
 
     # Authentication key selection
     read --prompt-str "Select authentication key (number): " auth_choice
-    if not string match -qr '^\d+$' -- $auth_choice; or test $auth_choice -lt 1; or test $auth_choice -gt (count $ssh_keys)
+    if not string match -qr '^\d+$' -- $auth_choice; or test $auth_choice -lt 1; or test $auth_choice -gt (count $key_contents)
         echo "Error: Invalid selection" >&2
         return 1
     end
-    set -l auth_file $ssh_keys[$auth_choice]
-    set --global __git_ssh_identity (basename $auth_file .pub)
+
+    # Handle auth key - ensure we have a local file
+    if test -n "$key_files[$auth_choice]"
+        # Key has a local file
+        set --global __git_ssh_identity (basename $key_files[$auth_choice] .pub)
+    else
+        # Agent-only key - write to ~/.ssh/
+        set -l agent_comment (string split ' ' $key_contents[$auth_choice])[3]
+        if test -z "$agent_comment"
+            set agent_comment "agent-key-"(date +%s)
+        end
+        # Sanitize filename
+        set -l filename (string replace -ra '[^a-zA-Z0-9@._-]' '-' $agent_comment)
+        set -l filepath ~/.ssh/$filename.pub
+        echo $key_contents[$auth_choice] >$filepath
+        chmod 644 $filepath
+        echo "Wrote agent key to $filepath"
+        set --global __git_ssh_identity $filename
+    end
 
     # Signing key selection
     read --prompt-str "Select signing key (number): " signing_choice
-    if not string match -qr '^\d+$' -- $signing_choice; or test $signing_choice -lt 1; or test $signing_choice -gt (count $ssh_keys)
+    if not string match -qr '^\d+$' -- $signing_choice; or test $signing_choice -lt 1; or test $signing_choice -gt (count $key_contents)
         echo "Error: Invalid selection" >&2
         return 1
     end
-    set -l signing_file $ssh_keys[$signing_choice]
-    set --global __git_signingkey (string trim (cat $signing_file))
+    set --global __git_signingkey $key_contents[$signing_choice]
 
     if test -z "$__git_name" -o -z "$__git_email"
         echo "Error: name and email are required" >&2
