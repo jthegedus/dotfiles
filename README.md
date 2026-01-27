@@ -150,6 +150,8 @@ Install apps:
 
 ```shell
 sudo pacman -Syu && sudo pacman -S fwupd wlr-randr flatpak ghostty steam tailscale
+# docker
+sudo pacman -S docker docker-buildx docker-compose
 ```
 
 </details>
