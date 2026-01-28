@@ -189,7 +189,10 @@ Set app environment flags:
 
 ## Other
 
-* fonts: [commitmono](https://commitmono.com/), which has a [Nerd Fonts patch](https://github.com/ryanoasis/nerd-fonts).
+* fonts:
+  * [commitmono](https://commitmono.com/), which has a [Nerd Fonts patch](https://github.com/ryanoasis/nerd-fonts).
+  * [Atkinson Hyperlegible](https://brailleinstitute.org/freefont/)
+  * [Open Dyslexic](https://opendyslexic.org/)
 
 ## References
 
